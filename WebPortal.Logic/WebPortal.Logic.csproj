@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Helpers\Sql\" />
-    <Folder Include="Queries\Interfaces\" />
-    <Folder Include="ReadServices\Interfaces\" />
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="WriteServices\Interfaces\" />
     <Folder Include="DTOModels\" />
@@ -16,6 +14,10 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebPortal.Database\WebPortal.Database.csproj" />
   </ItemGroup>
 
 </Project>

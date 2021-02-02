@@ -2,7 +2,12 @@
 
 namespace WebPortal.Database.Models
 {
-    public class WebPortalContext : DbContext
+    interface IWebPortalContext
+    {
+        
+    }
+
+    public class WebPortalContext : DbContext, IWebPortalContext
     {
         public WebPortalContext()
         {

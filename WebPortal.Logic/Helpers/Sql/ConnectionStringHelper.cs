@@ -12,7 +12,7 @@ namespace WebPortal.Logic.Helpers.Sql
         public string ConnectionString { get; set; }
         public ConnectionStringHelper(IConfiguration connectionString)
         {
-            ConnectionString = connectionString["ConnectionStrings:CabinetConnection"];
+            ConnectionString = connectionString["ConnectionStrings:DefaultConnection"];
         }
     }
 }

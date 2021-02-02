@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\Interfaces\" />
+    <Folder Include="ReadServices\Interfaces\" />
+    <Folder Include="Repository\Interfaces\" />
+    <Folder Include="WriteServices\Interfaces\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="DTOModels\" />
+  </ItemGroup>
+
+</Project>

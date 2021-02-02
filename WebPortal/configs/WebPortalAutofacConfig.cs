@@ -32,6 +32,14 @@ namespace WebPortal.configs
             builder.Register(c => new CustomerReadService(c.Resolve<ICustomersQueries>())) 
                 .As<ICustomersReadService>()
                 .InstancePerLifetimeScope();
+
+            builder.Register(c => new ProductsQueries(c.Resolve<IConnectionStringHelper>()))
+                .As<IProductsQueries>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new ProductsReadService(c.Resolve<IProductsQueries>()))
+                .As<IProductsReadService>()
+                .InstancePerLifetimeScope();
         }
 
         public static ContainerBuilder ContainerBuilderConfig(ContainerBuilder builder)

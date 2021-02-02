@@ -11,13 +11,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.configs;
+using WebPortal.Database.Models;
 
 namespace WebPortal
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+
+                .AddEnvironmentVariables();
+            this.Configuration = builder.Build();
             Configuration = configuration;
         }
 
@@ -28,10 +40,21 @@ namespace WebPortal
         {
 
             services.AddControllers();
+            services.AddAutofac();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebPortal", Version = "v1" });
             });
+            services.AddDbContext<WebPortalContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+
+            // Register your own things directly with Autofac, like:
+            builder.RegisterModule(new WebPortalAutofacConfig());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

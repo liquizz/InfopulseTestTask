@@ -20,7 +20,10 @@ namespace WebPortal.Logic.Queries
 
         public Products GetProduct(int productId)
         {
-            var query = $"SELECT * FROM Products WHERE Products.ProductId = {productId};";
+            var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products
+                                join ProductCategories on Products.ProductCategoriesCategoryId = ProductCategories.CategoryId
+                                join ProductSizes on Products.ProductSizesSizeId = ProductSizes.SizeId
+                                where Products.ProductId = {productId}";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -30,7 +33,9 @@ namespace WebPortal.Logic.Queries
 
         public List<Products> GetProducts()
         {
-            var query = $"SELECT * FROM Products;";
+            var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products
+                                join ProductCategories on Products.ProductCategoriesCategoryId = ProductCategories.CategoryId
+                                join ProductSizes on Products.ProductSizesSizeId = ProductSizes.SizeId;";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {

@@ -20,7 +20,11 @@ namespace WebPortal.Logic.Queries
 
         public Orders GetOrder(int orderId)
         {
-            var query = $"SELECT * FROM Orders WHERE Orders.OrderId = {orderId};";
+            var query = $@"select Orders.OrderId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusName
+                                from Orders
+                                join Customers on Customers.CustomerId = Orders.CustomerId1
+                                join OrdersStatuses on OrdersStatuses.StatusId = Orders.OrderStatusesStatusId
+                                WHERE Orders.OrderId = {orderId};";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -30,7 +34,10 @@ namespace WebPortal.Logic.Queries
 
         public List<Orders> GetOrders()
         {
-            var query = $"SELECT * FROM Orders";
+            var query = $@"select Orders.OrderId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusName
+                                from Orders
+                                join Customers on Customers.CustomerId = Orders.CustomerId1
+                                join OrdersStatuses on OrdersStatuses.StatusId = Orders.OrderStatusesStatusId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {

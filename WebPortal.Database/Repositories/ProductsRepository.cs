@@ -21,11 +21,26 @@ namespace WebPortal.Database.Repositories
         {
             return _context.Products.Where(p => ids.Contains(p.ProductId)).ToList();
         }
+        public async Task<ProductCategories> GetProductCategoryByIdAsync(int id)
+        {
+            return await _context.ProductCategories.FirstOrDefaultAsync(_ => _.CategoryId == id);
+        }
+
+        public async Task<ProductSizes> GetProductSizeByIdAsync(int id)
+        {
+            return await _context.ProductSizes.FirstOrDefaultAsync(_ => _.SizeId == id);
+        }
+
+        public async Task<ProductDescriptions> GetProductDescriptionsByIdAsync(int id)
+        {
+            return await _context.ProductDescriptions.FirstOrDefaultAsync(_ => _.ProductDescriptionId == id);
+        }
 
         public async Task<List<Products>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
+
 
         public async Task<Products> AddProducts(Products products)
         {
@@ -33,7 +48,18 @@ namespace WebPortal.Database.Repositories
             return product.Entity;
         }
 
-        public async Task<Products> DeleteProductsById(int id)
+        public ProductDescriptions UpdateDescription(ProductDescriptions descriptions)
+        {
+            var description = _context.ProductDescriptions.Update(descriptions).Entity;
+            return descriptions;
+        }
+        public Products UpdateProduct(Products products)
+        {
+            var product = _context.Products.Update(products).Entity;
+            return product;
+        }
+
+        public Products DeleteProductsById(int id)
         {
             var product = GetProductsByIdsAsync(new List<int>() {id});
 

@@ -58,6 +58,22 @@ namespace WebPortal.configs
             builder.Register(c => new CustomersWriteService(c.Resolve<ICustomerRepository>()))
                 .As<ICustomersWriteService>()
                 .InstancePerLifetimeScope();
+
+            builder.Register(c => new OrdersRepository(c.Resolve<IWebPortalContext>()))
+                .As<IOrdersRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new ProductsRepository(c.Resolve<IWebPortalContext>()))
+                .As<IProductsRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new OrdersWriteService(c.Resolve<IProductsRepository>(), c.Resolve<IOrdersRepository>(), c.Resolve<ICustomerRepository>()))
+                .As<IOrdersWriteService>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new ProductsWriteService(c.Resolve<IProductsRepository>()))
+                .As<IProductsWriteService>()
+                .InstancePerLifetimeScope();
         }
 
         public static ContainerBuilder ContainerBuilderConfig(ContainerBuilder builder)

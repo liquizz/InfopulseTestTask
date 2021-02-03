@@ -2,8 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Database.Models;
 
-namespace WebPortal.Database.Models
+namespace WebPortal.Database
 {
     public interface IWebPortalContext
     {
@@ -46,7 +47,7 @@ namespace WebPortal.Database.Models
         {
             try
             {
-                await this.SaveChangesAsync(cancellationToken);
+                await base.SaveChangesAsync(cancellationToken);
             }
             catch (Exception)
             {
@@ -76,6 +77,11 @@ namespace WebPortal.Database.Models
                 new { CategoryId = 2, CategoryName = "Electronics" },
                 new { CategoryId = 3, CategoryName = "Furniture" },
                 new { CategoryId = 4, CategoryName = "Shoes" });
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=.;Database=WebPortal; Trusted_Connection=True; MultipleActiveResultSets=true");
         }
 
     }

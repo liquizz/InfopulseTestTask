@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using WebPortal.Database.Models;
 using WebPortal.Database.Repositories;
 using WebPortal.Database.Repositories.Interfaces;
 using WebPortal.Logic.WriteServices.Interfaces;
@@ -13,9 +15,12 @@ namespace WebPortal.Logic.WriteServices
             _repository = repository;
         }
 
-        public bool CreateCustomer(string name, string address, DateTime createdDate)
+        public async Task<bool> CreateCustomer(string name, string address, DateTime createdDate)
         {
-            throw new NotImplementedException();
+            var customer = await _repository.AddCustomer(new Customers()
+                {Address = address, CreatedDate = createdDate, Name = name});
+
+            return await _repository.SaveChangesAsync();
         }
 
 

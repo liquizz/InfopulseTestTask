@@ -15,6 +15,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.configs;
+using WebPortal.Database;
 using WebPortal.Database.Models;
 
 namespace WebPortal

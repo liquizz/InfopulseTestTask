@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.Helpers.Sql;
 using WebPortal.Logic.Queries.Interfaces;
 
@@ -18,9 +19,9 @@ namespace WebPortal.Logic.Queries
             _connectionString = helper.ConnectionString;
         }
 
-        public List<Customers> GetCustomers()
+        public List<CustomerDTO> GetCustomers()
         {
-            var query = $@"select Customers.Name, Customers.Address, Calculation.TotalUserSum, Calculation.TotalOrders
+            var query = $@"select Customers.CustomerId, Customers.Name, Customers.Address, Calculation.TotalUserSum, Calculation.TotalOrders, Customers.CreatedDate
                                 from Customers
                                 join (select Customers.CustomerId, SUM(Orders.FinalPrice) as TotalUserSum, COUNT(Orders.OrderId) as TotalOrders 
                                             from Customers
@@ -29,7 +30,7 @@ namespace WebPortal.Logic.Queries
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<Customers>(query).ToList();
+                return db.Query<CustomerDTO>(query).ToList();
             }
         }
     }

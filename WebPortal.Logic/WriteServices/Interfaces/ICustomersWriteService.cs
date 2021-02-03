@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace WebPortal.Logic.WriteServices.Interfaces
 {
     public interface ICustomersWriteService
     {
-        public bool CreateCustomer(string name, string address, DateTime createdDate);
+        public Task<bool> CreateCustomer(string name, string address, DateTime createdDate);
     }
 }

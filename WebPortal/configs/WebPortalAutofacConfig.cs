@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
+using WebPortal.Database;
 using WebPortal.Database.Models;
 using WebPortal.Database.Repositories;
 using WebPortal.Database.Repositories.Interfaces;
@@ -8,6 +9,8 @@ using WebPortal.Logic.Queries;
 using WebPortal.Logic.Queries.Interfaces;
 using WebPortal.Logic.ReadServices;
 using WebPortal.Logic.ReadServices.Interfaces;
+using WebPortal.Logic.WriteServices;
+using WebPortal.Logic.WriteServices.Interfaces;
 
 
 namespace WebPortal.configs
@@ -50,6 +53,10 @@ namespace WebPortal.configs
 
             builder.Register(c => new CustomerRepository(c.Resolve<IWebPortalContext>()))
                 .As<ICustomerRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new CustomersWriteService(c.Resolve<ICustomerRepository>()))
+                .As<ICustomersWriteService>()
                 .InstancePerLifetimeScope();
         }
 

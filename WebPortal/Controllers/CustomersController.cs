@@ -5,46 +5,42 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using WebPortal.API.Filters;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.ReadServices.Interfaces;
+using WebPortal.Logic.WriteServices.Interfaces;
 
 namespace WebPortal.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [CustomFilter]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomersReadService _readService;
+        private readonly ICustomersWriteService _writeService;
 
-        public CustomersController(ICustomersReadService service)
+        public CustomersController(ICustomersReadService readService, ICustomersWriteService writeService)
         {
-            _readService = service;
+            _readService = readService;
+            _writeService = writeService;
         }
 
         [HttpGet]
-        public List<Customers> GetCustomers()
+        public List<CustomerDTO> GetCustomers()
         {
             return _readService.GetCustomers();
         }
 
-        //[HttpPost]
-        //public async Task<string> PostText()
-        //{
-        //    using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-        //    {
-        //        return await reader.ReadToEndAsync();
-        //    }
-        //}
-
         [HttpPost]
-        public async Task<byte[]> PostBinary()
+        public async Task<bool> CreateCustomer([FromForm] CustomerDTO customerData)
         {
-            using (var ms = new MemoryStream(2048))
-            {
-                await Request.Body.CopyToAsync(ms);
-                return ms.ToArray(); // returns base64 encoded string JSON result
-            }
+            return await _writeService.CreateCustomer(customerData.Name, customerData.Address,
+                    customerData.CreatedDate);
         }
+
     }
 }

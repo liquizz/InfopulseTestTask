@@ -8,7 +8,6 @@
     <Folder Include="Helpers\Sql\" />
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="WriteServices\Interfaces\" />
-    <Folder Include="DTOModels\" />
   </ItemGroup>
 
   <ItemGroup>

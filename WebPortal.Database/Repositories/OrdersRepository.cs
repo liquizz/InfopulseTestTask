@@ -21,6 +21,11 @@ namespace WebPortal.Database.Repositories
             return await _context.Orders.FirstOrDefaultAsync(_ => _.OrderId == id);
         }
 
+        public async Task<OrderStatuses> GetOrderStatusesByIdAsync(int id)
+        {
+            return await _context.OrdersStatuses.FirstOrDefaultAsync(_ => _.StatusId == id);
+        }
+
         public async Task<List<Orders>> GetOrders()
         {
             return await _context.Orders.ToListAsync();
@@ -29,6 +34,12 @@ namespace WebPortal.Database.Repositories
         public async Task<Orders> AddOrders(Orders orders)
         {
             var order = await _context.Orders.AddAsync(orders);
+            return order.Entity;
+        }
+
+        public Orders UpdateOrders(Orders orders)
+        {
+            var order = _context.Orders.Update(orders);
             return order.Entity;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Database.Models;
@@ -16,9 +17,9 @@ namespace WebPortal.Database.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Products> GetProductsByIdAsync(int id)
+        public List<Products> GetProductsByIdsAsync(List<int> ids)
         {
-            return await _context.Products.FirstOrDefaultAsync(_ => _.ProductId == id);
+            return _context.Products.Where(p => ids.Contains(p.ProductId)).ToList();
         }
 
         public async Task<List<Products>> GetProducts()
@@ -34,9 +35,9 @@ namespace WebPortal.Database.Repositories
 
         public async Task<Products> DeleteProductsById(int id)
         {
-            var product = await GetProductsByIdAsync(id);
+            var product = GetProductsByIdsAsync(new List<int>() {id});
 
-            var result = _context.Products.Remove(product);
+            var result = _context.Products.Remove(product.FirstOrDefault());
 
             return result.Entity;
         }

@@ -8,7 +8,9 @@ namespace WebPortal.Database.Models
         [Key]
         public int OrderId { get; set; }
         public DateTime OrderDateCreated { get; set; }
+        public float? FinalPrice { get; set; }
         public Customers CustomerId { get; set; }
         public OrderComments OrderComments { get; set; }
+        public OrderStatuses OrderStatuses { get; set; }
     }
 }

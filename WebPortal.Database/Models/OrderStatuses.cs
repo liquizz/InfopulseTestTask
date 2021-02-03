@@ -2,7 +2,7 @@
 
 namespace WebPortal.Database.Models
 {
-    public class OrdersStatuses
+    public class OrderStatuses
     {
         [Key]
         public int StatusId { get; set; }

@@ -10,8 +10,8 @@ using WebPortal.Database.Models;
 namespace WebPortal.Database.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    [Migration("20210202192641_Initial")]
-    partial class Initial
+    [Migration("20210203084507_AddedFinalPriceFieldToOrders")]
+    partial class AddedFinalPriceFieldToOrders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,48 @@ namespace WebPortal.Database.Migrations
                     b.ToTable("OrderComments");
                 });
 
+            modelBuilder.Entity("WebPortal.Database.Models.OrderStatuses", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("StatusName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("OrdersStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            StatusId = 1,
+                            StatusName = "New"
+                        },
+                        new
+                        {
+                            StatusId = 2,
+                            StatusName = "Paid"
+                        },
+                        new
+                        {
+                            StatusId = 3,
+                            StatusName = "Shipped"
+                        },
+                        new
+                        {
+                            StatusId = 4,
+                            StatusName = "Delivered"
+                        },
+                        new
+                        {
+                            StatusId = 5,
+                            StatusName = "Closed"
+                        });
+                });
+
             modelBuilder.Entity("WebPortal.Database.Models.Orders", b =>
                 {
                     b.Property<int>("OrderId")
@@ -67,11 +109,17 @@ namespace WebPortal.Database.Migrations
                     b.Property<int?>("CustomerId1")
                         .HasColumnType("int");
 
+                    b.Property<float?>("FinalPrice")
+                        .HasColumnType("real");
+
                     b.Property<int?>("OrderCommentsOrderCommentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDateCreated")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrderStatusesStatusId")
+                        .HasColumnType("int");
 
                     b.HasKey("OrderId");
 
@@ -79,12 +127,14 @@ namespace WebPortal.Database.Migrations
 
                     b.HasIndex("OrderCommentsOrderCommentId");
 
+                    b.HasIndex("OrderStatusesStatusId");
+
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WebPortal.Database.Models.OrdersProducts", b =>
                 {
-                    b.Property<int>("OrdersProductsId")
+                    b.Property<int>("OrderProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -95,13 +145,50 @@ namespace WebPortal.Database.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrdersProductsId");
+                    b.HasKey("OrderProductId");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrdersProducts");
+                });
+
+            modelBuilder.Entity("WebPortal.Database.Models.ProductCategories", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("ProductCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Food"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Electronics"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Furniture"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Shoes"
+                        });
                 });
 
             modelBuilder.Entity("WebPortal.Database.Models.ProductDescriptions", b =>
@@ -111,12 +198,44 @@ namespace WebPortal.Database.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ProductDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductDescriptionId");
 
                     b.ToTable("ProductDescriptions");
+                });
+
+            modelBuilder.Entity("WebPortal.Database.Models.ProductSizes", b =>
+                {
+                    b.Property<int>("SizeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("SizeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SizeId");
+
+                    b.ToTable("ProductSizes");
+
+                    b.HasData(
+                        new
+                        {
+                            SizeId = 1,
+                            SizeName = "Small"
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            SizeName = "Medium"
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            SizeName = "Large"
+                        });
                 });
 
             modelBuilder.Entity("WebPortal.Database.Models.Products", b =>
@@ -158,9 +277,15 @@ namespace WebPortal.Database.Migrations
                         .WithMany()
                         .HasForeignKey("OrderCommentsOrderCommentId");
 
+                    b.HasOne("WebPortal.Database.Models.OrderStatuses", "OrderStatuses")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusesStatusId");
+
                     b.Navigation("CustomerId");
 
                     b.Navigation("OrderComments");
+
+                    b.Navigation("OrderStatuses");
                 });
 
             modelBuilder.Entity("WebPortal.Database.Models.OrdersProducts", b =>

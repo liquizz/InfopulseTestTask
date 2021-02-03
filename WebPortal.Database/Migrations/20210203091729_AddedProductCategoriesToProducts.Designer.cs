@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.Database.Models;
 
 namespace WebPortal.Database.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210203091729_AddedProductCategoriesToProducts")]
+    partial class AddedProductCategoriesToProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,9 +260,6 @@ namespace WebPortal.Database.Migrations
                     b.Property<int?>("ProductDescriptionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductSizesSizeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -269,8 +268,6 @@ namespace WebPortal.Database.Migrations
                     b.HasIndex("ProductCategoriesCategoryId");
 
                     b.HasIndex("ProductDescriptionId");
-
-                    b.HasIndex("ProductSizesSizeId");
 
                     b.ToTable("Products");
                 });
@@ -321,15 +318,9 @@ namespace WebPortal.Database.Migrations
                         .WithMany()
                         .HasForeignKey("ProductDescriptionId");
 
-                    b.HasOne("WebPortal.Database.Models.ProductSizes", "ProductSizes")
-                        .WithMany()
-                        .HasForeignKey("ProductSizesSizeId");
-
                     b.Navigation("ProductCategories");
 
                     b.Navigation("ProductDescription");
-
-                    b.Navigation("ProductSizes");
                 });
 #pragma warning restore 612, 618
         }

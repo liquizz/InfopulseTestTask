@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.Database.Models;
 
 namespace WebPortal.Database.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210203083229_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,25 +109,17 @@ namespace WebPortal.Database.Migrations
                     b.Property<int?>("CustomerId1")
                         .HasColumnType("int");
 
-                    b.Property<float?>("FinalPrice")
-                        .HasColumnType("real");
-
                     b.Property<int?>("OrderCommentsOrderCommentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderStatusesStatusId")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId1");
 
                     b.HasIndex("OrderCommentsOrderCommentId");
-
-                    b.HasIndex("OrderStatusesStatusId");
 
                     b.ToTable("Orders");
                 });
@@ -249,16 +243,10 @@ namespace WebPortal.Database.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("ProductCategoriesCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ProductDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ProductDescriptionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductSizesSizeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -266,11 +254,7 @@ namespace WebPortal.Database.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("ProductCategoriesCategoryId");
-
                     b.HasIndex("ProductDescriptionId");
-
-                    b.HasIndex("ProductSizesSizeId");
 
                     b.ToTable("Products");
                 });
@@ -285,15 +269,9 @@ namespace WebPortal.Database.Migrations
                         .WithMany()
                         .HasForeignKey("OrderCommentsOrderCommentId");
 
-                    b.HasOne("WebPortal.Database.Models.OrderStatuses", "OrderStatuses")
-                        .WithMany()
-                        .HasForeignKey("OrderStatusesStatusId");
-
                     b.Navigation("CustomerId");
 
                     b.Navigation("OrderComments");
-
-                    b.Navigation("OrderStatuses");
                 });
 
             modelBuilder.Entity("WebPortal.Database.Models.OrdersProducts", b =>
@@ -313,23 +291,11 @@ namespace WebPortal.Database.Migrations
 
             modelBuilder.Entity("WebPortal.Database.Models.Products", b =>
                 {
-                    b.HasOne("WebPortal.Database.Models.ProductCategories", "ProductCategories")
-                        .WithMany()
-                        .HasForeignKey("ProductCategoriesCategoryId");
-
                     b.HasOne("WebPortal.Database.Models.ProductDescriptions", "ProductDescription")
                         .WithMany()
                         .HasForeignKey("ProductDescriptionId");
 
-                    b.HasOne("WebPortal.Database.Models.ProductSizes", "ProductSizes")
-                        .WithMany()
-                        .HasForeignKey("ProductSizesSizeId");
-
-                    b.Navigation("ProductCategories");
-
                     b.Navigation("ProductDescription");
-
-                    b.Navigation("ProductSizes");
                 });
 #pragma warning restore 612, 618
         }

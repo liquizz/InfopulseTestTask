@@ -36,16 +36,55 @@ namespace WebPortal.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrdersStatuses",
+                columns: table => new
+                {
+                    StatusId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdersStatuses", x => x.StatusId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductCategories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductCategories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductDescriptions",
                 columns: table => new
                 {
                     ProductDescriptionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductDescriptions", x => x.ProductDescriptionId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSizes",
+                columns: table => new
+                {
+                    SizeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SizeName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSizes", x => x.SizeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,14 +141,14 @@ namespace WebPortal.Database.Migrations
                 name: "OrdersProducts",
                 columns: table => new
                 {
-                    OrdersProductsId = table.Column<int>(type: "int", nullable: false)
+                    OrderProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdersProducts", x => x.OrdersProductsId);
+                    table.PrimaryKey("PK_OrdersProducts", x => x.OrderProductId);
                     table.ForeignKey(
                         name: "FK_OrdersProducts_Orders_OrderId",
                         column: x => x.OrderId,
@@ -122,6 +161,39 @@ namespace WebPortal.Database.Migrations
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrdersStatuses",
+                columns: new[] { "StatusId", "StatusName" },
+                values: new object[,]
+                {
+                    { 1, "New" },
+                    { 2, "Paid" },
+                    { 3, "Shipped" },
+                    { 4, "Delivered" },
+                    { 5, "Closed" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategories",
+                columns: new[] { "CategoryId", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Food" },
+                    { 2, "Electronics" },
+                    { 3, "Furniture" },
+                    { 4, "Shoes" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductSizes",
+                columns: new[] { "SizeId", "SizeName" },
+                values: new object[,]
+                {
+                    { 1, "Small" },
+                    { 2, "Medium" },
+                    { 3, "Large" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -154,6 +226,15 @@ namespace WebPortal.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "OrdersProducts");
+
+            migrationBuilder.DropTable(
+                name: "OrdersStatuses");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "ProductSizes");
 
             migrationBuilder.DropTable(
                 name: "Orders");

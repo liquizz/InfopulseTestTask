@@ -6,6 +6,6 @@ namespace WebPortal.Database.Models
     {
         [Key]
         public int ProductDescriptionId { get; set; }
-        public string ProductDescription { get; set; }
+        public string Description { get; set; }
     }
 }

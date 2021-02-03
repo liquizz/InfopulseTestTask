@@ -11,6 +11,8 @@ namespace WebPortal.Database.Models
         public string Name { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
+        public ProductCategories ProductCategories { get; set; }
+        public ProductSizes ProductSizes { get; set; }
         public ProductDescriptions ProductDescription { get; set; }
     }
 }

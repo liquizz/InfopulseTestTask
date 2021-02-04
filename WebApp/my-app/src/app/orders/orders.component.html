@@ -1,1 +1,25 @@
-<p>orders works!</p>
+<h1>Orders</h1>
+
+<button (click)="onClickHandler()" >New Order</button>
+
+<div>
+  <thead>
+    <tr>
+      <td>Order Number</td>
+      <td>Customer Name</td>
+      <td>Customer Address</td>
+      <td>Total Cost</td>
+      <td>Status</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{order.orderId}}</td>
+      <td>{{order.name}}</td>
+      <td>{{order.address}}</td>
+      <td>{{order.finalPrice}}</td>
+      <td>{{order.statusName}}</td>
+    </tr>
+  </tbody>
+</div>
+

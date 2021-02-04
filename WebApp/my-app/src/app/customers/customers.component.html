@@ -1,1 +1,26 @@
-<p>customers works!</p>
+<h1>Customers</h1>
+
+<button (click)="onClickHandler()" >New Customer</button>
+
+<div>
+  <thead>
+  <tr>
+    <td>Customer Id</td>
+    <td>Customer Name</td>
+    <td>Customer Address</td>
+    <td>Creation Date</td>
+    <td>Total Orders Sum</td>
+    <td>Total Orders</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let customer of customers">
+    <td>{{customer.customerId}}</td>
+    <td>{{customer.name}}</td>
+    <td>{{customer.address}}</td>
+    <td>{{customer.createdDate}}</td>
+    <td>{{customer.totalUserSum}}</td>
+    <td>{{customer.totalOrders}}</td>
+  </tr>
+  </tbody>
+</div>

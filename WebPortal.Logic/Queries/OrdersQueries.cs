@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.Helpers.Sql;
 using WebPortal.Logic.Queries.Interfaces;
 
@@ -18,7 +19,7 @@ namespace WebPortal.Logic.Queries
             _connectionString = helper.ConnectionString;
         }
 
-        public Orders GetOrder(int orderId)
+        public GetOrderDTO GetOrder(int orderId)
         {
             var query = $@"select Orders.OrderId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusName
                                 from Orders
@@ -28,11 +29,11 @@ namespace WebPortal.Logic.Queries
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<Orders>(query).FirstOrDefault();
+                return db.Query<GetOrderDTO>(query).FirstOrDefault();
             }
         }
 
-        public List<Orders> GetOrders()
+        public List<GetOrderDTO> GetOrders()
         {
             var query = $@"select Orders.OrderId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusName
                                 from Orders
@@ -41,7 +42,27 @@ namespace WebPortal.Logic.Queries
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<Orders>(query).ToList();
+                return db.Query<GetOrderDTO>(query).ToList();
+            }
+        }
+
+        public List<ProductCategories> GetCategories()
+        {
+            var query = $@"select * from ProductCategories";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<ProductCategories>(query).ToList();
+            }
+        }
+
+        public List<OrderStatuses> GetOrderStatuses()
+        {
+            var query = $@"select * from OrdersStatuses";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<OrderStatuses>(query).ToList();
             }
         }
     }

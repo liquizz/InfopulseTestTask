@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 
 namespace WebPortal.Logic.ReadServices.Interfaces
 {
     public interface IOrdersReadService
     {
-        public List<Orders> GetOrders();
-        public Orders GetOrder(int orderId);
+        List<GetOrderDTO> GetOrders();
+        GetOrderDTO GetOrder(int orderId);
+        List<ProductCategories> GetCategories();
+        List<OrderStatuses> GetOrderStatuses();
     }
 }

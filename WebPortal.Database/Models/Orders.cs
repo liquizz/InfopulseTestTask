@@ -6,6 +6,10 @@ namespace WebPortal.Database.Models
 {
     public class Orders
     {
+        public Orders()
+        {
+            Products = new List<Products>();
+        }
         [Key]
         public int OrderId { get; set; }
         public DateTime OrderDateCreated { get; set; }

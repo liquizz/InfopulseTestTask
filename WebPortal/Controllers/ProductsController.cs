@@ -24,14 +24,14 @@ namespace WebPortal.API.Controllers
             _productsWriteService = productsWriteService;
         }
 
-        [HttpGet] // Change to DTO
-        public Products GetProduct(int productId)
+        [HttpGet("{productId}")] // Change to DTO
+        public GetProductsDTO GetProduct(int productId)
         {
             return _productsReadService.GetProduct(productId);
         }
 
         [HttpGet] // The same here, too
-        public List<Products> GetProducts()
+        public List<GetProductsDTO> GetProducts()
         {
             return _productsReadService.GetProducts();
         }

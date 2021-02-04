@@ -25,24 +25,37 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpGet]
-        public List<Orders> GetOrders()
+        public List<GetOrderDTO> GetOrders()
         {
             return _ordersReadService.GetOrders();
         }
 
-        public Orders GetOrder(int orderId)
+        [HttpGet("{orderId}")]
+        public GetOrderDTO GetOrder(int orderId)
         {
             return _ordersReadService.GetOrder(orderId);
+        }
+
+        [HttpGet("Categories")] // TODO: MOVE TO PRODUCTS CONTROLLER/READ SERVICE (made by mistake)
+        public List<ProductCategories> GetCategories()
+        {
+            return _ordersReadService.GetCategories();
+        }
+
+        [HttpGet("Statuses")]
+        public List<OrderStatuses> GetOrderStatuses()
+        {
+            return _ordersReadService.GetOrderStatuses();
         }
 
         [HttpPost]
         public async Task<bool> CreateOrder([FromForm] CreateOrderDTO createOrderData)
         {
-            return await _ordersWriteService.CreateOrder(createOrderData.orderDate, createOrderData.customerId,
-                createOrderData.statusId, createOrderData.totalCost, createOrderData.productsList);
+            return await _ordersWriteService.CreateOrder(createOrderData.OrderDate, createOrderData.CustomerId,
+                createOrderData.StatusId, createOrderData.TotalCost, createOrderData.ProductsList);
         }
         
-        [HttpPost] // TODO: MAKE A PATH!
+        [HttpPost("{orderId}")] // TODO: MAKE A PATH!
         public async Task<bool> UpdateOrder([FromForm] UpdateOrderDTO updateOrderData)
         {
             return await _ordersWriteService.CreateOrder(updateOrderData.orderDate, updateOrderData.customerId,

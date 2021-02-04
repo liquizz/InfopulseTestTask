@@ -35,6 +35,12 @@ namespace WebPortal.API.Controllers
             return _readService.GetCustomers();
         }
 
+        [HttpGet("CustomersShort")]
+        public List<Customers> GetCustomersList()
+        {
+            return _readService.GetCustomersList();
+        }
+
         [HttpPost]
         public async Task<bool> CreateCustomer([FromForm] CustomerDTO customerData)
         {

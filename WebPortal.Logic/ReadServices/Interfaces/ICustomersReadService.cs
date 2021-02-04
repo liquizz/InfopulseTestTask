@@ -7,5 +7,6 @@ namespace WebPortal.Logic.ReadServices.Interfaces
     public interface ICustomersReadService
     {
         public List<CustomerDTO> GetCustomers();
+        List<Customers> GetCustomersList();
     }
 }

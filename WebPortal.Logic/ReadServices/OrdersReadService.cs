@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.Queries.Interfaces;
 using WebPortal.Logic.ReadServices.Interfaces;
 
@@ -13,14 +14,24 @@ namespace WebPortal.Logic.ReadServices
             _queries = queries;
         }
 
-        public Orders GetOrder(int orderId)
+        public GetOrderDTO GetOrder(int orderId)
         {
             return _queries.GetOrder(orderId);
         }
 
-        public List<Orders> GetOrders()
+        public List<GetOrderDTO> GetOrders()
         {
-            throw new System.NotImplementedException();
+            return _queries.GetOrders();
+        }
+
+        public List<ProductCategories> GetCategories()
+        {
+            return _queries.GetCategories();
+        }
+
+        public List<OrderStatuses> GetOrderStatuses()
+        {
+            return _queries.GetOrderStatuses();
         }
     }
 }

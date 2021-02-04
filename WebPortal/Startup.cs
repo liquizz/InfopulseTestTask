@@ -22,6 +22,7 @@ namespace WebPortal
 {
     public class Startup
     {
+        readonly string devCors = "_AllowAllOrigins";
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -46,6 +47,18 @@ namespace WebPortal
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebPortal", Version = "v1" });
             });
+
+            // CORS Policy setup (Allow all)
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: devCors,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+
+                    });
+            });
+
             services.AddDbContext<WebPortalContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -68,7 +81,9 @@ namespace WebPortal
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebPortal v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors(devCors);
 
             app.UseRouting();
 

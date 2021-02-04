@@ -19,5 +19,10 @@ namespace WebPortal.Logic.ReadServices
         {
             return _queries.GetCustomers();
         }
+
+        public List<Customers> GetCustomersList()
+        {
+            return _queries.GetCustomersList();
+        }
     }
 }

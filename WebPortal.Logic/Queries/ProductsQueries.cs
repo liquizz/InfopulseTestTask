@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using WebPortal.Database.Models;
+using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.Helpers.Sql;
 using WebPortal.Logic.Queries.Interfaces;
 
@@ -18,7 +19,7 @@ namespace WebPortal.Logic.Queries
             _connectionString = helper.ConnectionString;
         }
 
-        public Products GetProduct(int productId)
+        public GetProductsDTO GetProduct(int productId)
         {
             var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products
                                 join ProductCategories on Products.ProductCategoriesCategoryId = ProductCategories.CategoryId
@@ -27,11 +28,11 @@ namespace WebPortal.Logic.Queries
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<Products>(query).FirstOrDefault();
+                return db.Query<GetProductsDTO>(query).FirstOrDefault();
             }
         }
 
-        public List<Products> GetProducts()
+        public List<GetProductsDTO> GetProducts()
         {
             var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products
                                 join ProductCategories on Products.ProductCategoriesCategoryId = ProductCategories.CategoryId
@@ -39,7 +40,7 @@ namespace WebPortal.Logic.Queries
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<Products>(query).ToList();
+                return db.Query<GetProductsDTO>(query).ToList();
             }
         }
     }

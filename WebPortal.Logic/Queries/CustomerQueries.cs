@@ -33,5 +33,15 @@ namespace WebPortal.Logic.Queries
                 return db.Query<CustomerDTO>(query).ToList();
             }
         }
+
+        public List<Customers> GetCustomersList()
+        {
+            var query = $@"select * from Customers";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<Customers>(query).ToList();
+            }
+        }
     }
 }

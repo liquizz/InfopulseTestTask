@@ -13,7 +13,7 @@ namespace WebPortal.Logic.Queries
     public class OrdersQueries : IOrdersQueries
     {
         private readonly string _connectionString;
-
+        
         public OrdersQueries(IConnectionStringHelper helper)
         {
             _connectionString = helper.ConnectionString;

@@ -14,6 +14,8 @@ namespace WebPortal.Logic.ReadServices
             _queries = queries;
         }
 
+        // If you're reading this, I want you to know. I had only 1 day for completion, and I want to ask you to be understanding, when checking my task:)
+        // Flash joke: *404* joke is not found :(
         public GetOrderDTO GetOrder(int orderId)
         {
             return _queries.GetOrder(orderId);

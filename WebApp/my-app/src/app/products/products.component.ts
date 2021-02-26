@@ -2,16 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {URL} from '../url-helper';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-
-interface Product{
-  productId: number;
-  productDate: Date;
-  name: string;
-  quantity: number;
-  price: number;
-  categoryName: string;
-  sizeName: string;
-}
+import Product from '../models/product.model';
 
 @Component({
   selector: 'app-products',
@@ -26,9 +17,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`${URL}Products/`).subscribe(Response => {
       this.products = Response as Product[];
+      console.log(this.products)
     });
-  }
-  onClickHandler(): void {
-    this.router.navigateByUrl('/new-product');
   }
 }

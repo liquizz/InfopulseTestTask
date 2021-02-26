@@ -1,43 +1,11 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {URL} from '../url-helper';
-
-interface Customer{
-  customerId: number;
-  name: string;
-  address: string;
-  createdDate: Date;
-}
-
-interface Status {
-  statusId: number;
-  statusName: string;
-}
-
-interface Product {
-  productId: number;
-  productDate: Date;
-  name: string;
-  quantity: number;
-  price: any;
-  productCategories: any;
-  productSizes: any;
-  productDescriptions: any;
-}
-
-interface Comment{
-  commentId: number;
-  comment: string;
-}
-
-interface Order{
-  orderId: number;
-  name: string;
-  address: string;
-  finalPrice: number;
-  statusName: string;
-}
+import {URL} from '../../url-helper';
+import CustomerShort from '../../models/customer-short.model';
+import Status from '../../models/status.model';
+import Product from '../../models/product.model';
+import Order from '../../models/order.model';
 
 @Component({
   selector: 'app-create-order',
@@ -45,7 +13,7 @@ interface Order{
   styleUrls: ['./create-order.component.css']
 })
 export class CreateOrderComponent implements OnInit {
-  customers: Customer[];
+  customers: CustomerShort[];
   statuses: Status[];
   products: Product[];
   orders: Order[] = [];
@@ -55,7 +23,7 @@ export class CreateOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get(`${URL}Customers/CustomersShort`).subscribe(res => {
-      this.customers = res as Customer[];
+      this.customers = res as CustomerShort[];
     });
     this.http.get(`${URL}Orders/Statuses`).subscribe(res => {
       this.statuses = res as Status[];

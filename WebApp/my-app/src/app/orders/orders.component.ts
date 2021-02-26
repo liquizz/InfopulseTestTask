@@ -2,15 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import {URL} from '../url-helper';
-
-
-interface Order{
-  orderId: number;
-  name: string;
-  address: string;
-  finalPrice: number;
-  statusName: string;
-}
+import Order from '../models/order.model';
 
 export type mode = 'add' | 'edit';
 

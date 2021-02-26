@@ -8,9 +8,9 @@ import { ProductsComponent } from './products/products.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateOrderComponent } from './create-order/create-order.component';
-import { CreateCustomerComponent } from './create-customer/create-customer.component';
-import { CreateProductComponent } from './create-product/create-product.component';
+import { CreateOrderComponent } from './orders/create-order/create-order.component';
+import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
 
 @NgModule({
   declarations: [

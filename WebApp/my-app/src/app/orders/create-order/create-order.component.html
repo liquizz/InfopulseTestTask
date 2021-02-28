@@ -1,34 +1,62 @@
 <h1>Create Order</h1>
 
-<div>
-  <p>Order Number: {{orders.length + 1}}</p>
-  <p>Order Date: {{date}} </p>
-  <p>Select a Customer: <select  name="customer" id="customerSelect">
-    <option *ngFor="let customer of customers" value="">{{customer.name}}</option>
-  </select> </p>
-  <p>Select order Status: <select name="status" id="orderStatusSelect">
-    <option *ngFor="let status of statuses" value="">{{status.statusName}}</option>
-  </select></p>
-
-  <thead>
+<form (ngSubmit)="onSubmitClicked()" #orderForm="ngForm">
+  <p>Order Number: {{ orders.length + 1 }}</p>
+  <p>Order Date: {{ date }}</p>
+  <div class="form-group">
+    <label for="customer">Customer: </label>
+    <select
+      id="customer"
+      class="form-control"
+      [ngModel]="chosenCustomer"
+      name="customer"
+      required
+    >
+      <option *ngFor="let customer of customers" [value]="customer.name">{{ customer.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="status">Status: </label>
+    <select
+      id="status"
+      class="form-control"
+      ngModel
+      name="status"
+      required
+    >
+      <option *ngFor="let status of statuses" [value]="status.statusName">{{ status.statusName }}</option>
+    </select>
+  </div>
+  <p>Total Cost: $ {{ totalCost }}</p>
+  <button class="btn btn-primary"
+          (click)="onAddProductClicked(orderForm.value)">Add Products to Order</button>
+  <div *ngIf="products.length < 1">No products here... yet :)</div>
+  <div *ngIf="products.length >= 1">
+    <thead>
     <tr>
       <td>Product Id</td>
       <td>Product Name</td>
-      <td>Product Category</td>
       <td>Product Size</td>
       <td>Quantity</td>
       <td>Price</td>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let product of products">
       <td>{{product.productId}}</td>
       <td>{{product.name}}</td>
       <td>{{product.quantity}}</td>
       <td>{{product.price}}</td>
     </tr>
-  </tbody>
-
-  <input type="text">
-
-</div>
+    </tbody>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" name="comment" rows="3" [(ngModel)]="comment"></textarea>
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="!orderForm.valid"
+  >Save</button>
+  <button routerLink="../">Cancel</button>
+</form>

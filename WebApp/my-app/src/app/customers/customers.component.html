@@ -1,26 +1,35 @@
-<h1>Customers</h1>
-
-<a routerLink="new" >New Customer</a>
-
-<div>
-  <thead>
-  <tr>
-    <td>Customer Id</td>
-    <td>Customer Name</td>
-    <td>Customer Address</td>
-    <td>Creation Date</td>
-    <td>Total Orders Sum</td>
-    <td>Total Orders</td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let customer of customers">
-    <td>{{customer.customerId}}</td>
-    <td>{{customer.name}}</td>
-    <td>{{customer.address}}</td>
-    <td>{{customer.createdDate}}</td>
-    <td>{{customer.totalUserSum}}</td>
-    <td>{{customer.totalOrders}}</td>
-  </tr>
-  </tbody>
+<div class="customers-container">
+  <div class="customers-header">
+    <div class="row justify-content-between">
+      <div class="col-4">
+        <h3>Customers</h3>
+      </div>
+      <div class="col-1">
+        <a routerLink="new" >New Customer</a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <table class="table customers-table">
+      <thead class="customers-table-thead">
+      <tr>
+        <td class="customers-table-head" width="30%">Customer Name</td>
+        <td class="customers-table-head" width="30%">Customer Address</td>
+        <td class="customers-table-head" width="20%">Total Orders Sum</td>
+        <td class="customers-table-head" width="20%">Total Orders</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customers">
+        <td class="customers-table-head" scope="row">{{customer.name}}</td>
+        <td class="customers-table-head" scope="row">{{customer.address}}</td>
+        <td class="customers-table-head" scope="row">{{customer.totalUserSum}}</td>
+        <td class="customers-table-head" scope="row">{{customer.totalOrders}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+
+

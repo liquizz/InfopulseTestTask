@@ -1,10 +1,8 @@
-export default interface Product {
+export interface Product {
     productId: number;
-    productDate: Date;
     name: string;
+    categoryName: string;
+    sizeName: string;
     quantity: number;
-    price: any;
-    productCategories: any;
-    productSizes: any;
-    productDescriptions: any;
+    price: number;
   }

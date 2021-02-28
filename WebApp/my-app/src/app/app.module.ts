@@ -11,6 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateOrderComponent } from './orders/create-order/create-order.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
+import {FormsModule} from '@angular/forms';
+import {CustomersService} from './customers/customers.service';
+import OrdersService from './orders/orders.service';
+import { AddProductComponent } from './orders/add-product/add-product.component';
+import {ProductsService} from './products/products.service';
 
 @NgModule({
   declarations: [
@@ -21,14 +26,20 @@ import { CreateProductComponent } from './products/create-product/create-product
     DashboardComponent,
     CreateOrderComponent,
     CreateCustomerComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    CustomersService,
+    OrdersService,
+    ProductsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

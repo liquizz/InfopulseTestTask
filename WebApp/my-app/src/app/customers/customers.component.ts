@@ -11,27 +11,20 @@ import { CustomersService } from './customers.service';
   styleUrls: ['./customers.component.css'],
   providers: [CustomersService]
 })
-export class CustomersComponent implements OnInit, OnChanges {
+export class CustomersComponent implements OnInit {
   customers: Customer[];
 
   constructor(
-    private http: HttpClient, 
-    private router: Router, 
-    private customersService: CustomersService ) { 
-      this.customersService.customersUpdated.subscribe(
-        (updatedCustomers: Customer[]) => {
-          this.customers = updatedCustomers;
-          console.log('cust: ' + this.customers);
-        }
-      )
+    private http: HttpClient,
+    private router: Router,
+    private customersService: CustomersService ) {
      }
 
   ngOnInit(): void {
-    this.customersService.fetchCustomersData();
-    
+    this.customersService.fetchCustomersData().subscribe((data) => {
+      this.customers = data;
+    });
   }
 
-  ngOnChanges(){
-    this.customers = this.customersService.customers;
-  }
+
 }

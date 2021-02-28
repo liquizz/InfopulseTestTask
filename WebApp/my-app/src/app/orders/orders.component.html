@@ -3,7 +3,8 @@
 <a routerLink="new" >New Order</a>
 
 <div>
-  <thead>
+  <table>
+    <thead>
     <tr>
       <td>Order Number</td>
       <td>Customer Name</td>
@@ -11,8 +12,8 @@
       <td>Total Cost</td>
       <td>Status</td>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let order of orders">
       <td>{{order.orderId}}</td>
       <td>{{order.name}}</td>
@@ -20,6 +21,7 @@
       <td>{{order.finalPrice}}</td>
       <td>{{order.statusName}}</td>
     </tr>
-  </tbody>
+    </tbody>
+  </table>
 </div>
 

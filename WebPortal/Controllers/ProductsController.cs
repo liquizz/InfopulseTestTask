@@ -36,7 +36,7 @@ namespace WebPortal.API.Controllers
             return _productsReadService.GetProducts();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<bool> CreateProduct([FromForm] CreateProductDTO createProductData)
         {
             return await _productsWriteService.CreateProduct(createProductData.ProductName, createProductData.ProductCategoryId,
@@ -44,13 +44,13 @@ namespace WebPortal.API.Controllers
                 createProductData.ProductDescription, createProductData.ProductSizeId);
         }
 
-        [HttpDelete]
+        [HttpDelete("delete")]
         public object DeleteProduct([FromForm] DeleteProductDTO deleteProductData)
         {
             return _productsWriteService.DeleteProduct(deleteProductData.ProductId);
         }
 
-        [HttpPost]
+        [HttpPost("update")]
         public async Task<object> UpdateProduct([FromForm] UpdateProductDTO updateProductData)
         {
             return await _productsWriteService.EditProduct(updateProductData.ProductId, updateProductData.ProductName,

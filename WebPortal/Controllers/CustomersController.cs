@@ -12,6 +12,7 @@ using WebPortal.Database.Models;
 using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.ReadServices.Interfaces;
 using WebPortal.Logic.WriteServices.Interfaces;
+using WebPortal.helpers;
 
 namespace WebPortal.API.Controllers
 {
@@ -42,10 +43,12 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateCustomer([FromForm] CustomerDTO customerData)
+        public async Task<bool> CreateCustomer(JsonElement customerData)
         {
-            return await _writeService.CreateCustomer(customerData.Name, customerData.Address,
-                    customerData.CreatedDate);
+            var deserializedCustomerData = JsonDeserializeHelper.ToObject<CustomerDTO>(customerData);
+
+            return await _writeService.CreateCustomer(deserializedCustomerData.Name, deserializedCustomerData.Address,
+                    deserializedCustomerData.CreatedDate);
         }
 
     }

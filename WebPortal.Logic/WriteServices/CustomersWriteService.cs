@@ -18,30 +18,9 @@ namespace WebPortal.Logic.WriteServices
         public async Task<bool> CreateCustomer(string name, string address, DateTime createdDate)
         {
             var customer = await _repository.AddCustomer(new Customers()
-                {Address = address, CreatedDate = createdDate, Name = name});
+                { Address = address, CreatedDate = createdDate, Name = name });
 
             return await _repository.SaveChangesAsync();
         }
-
-
-
-
-        //public async void aaa()
-        //{
-        //    //edit 
-        //    var repo = new CustomerRepository();
-
-        //    var customer = await repo.GetCustomerByIdAsync(2);
-
-        //    customer.Name = "Petya 2";
-
-        //    repo.SaveChangesAsync();
-
-
-        //    //delete
-
-
-
-        //}
     }
 }

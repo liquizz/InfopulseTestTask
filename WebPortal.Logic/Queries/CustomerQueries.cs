@@ -23,7 +23,7 @@ namespace WebPortal.Logic.Queries
         {
             var query = $@"select Customers.CustomerId, Customers.Name, Customers.Address, Calculation.TotalUserSum, Calculation.TotalOrders, Customers.CreatedDate
                                 from Customers
-                                join (select Customers.CustomerId, SUM(Orders.FinalPrice) as TotalUserSum, COUNT(Orders.OrderId) as TotalOrders 
+                                left join (select Customers.CustomerId, SUM(Orders.FinalPrice) as TotalUserSum, COUNT(Orders.OrderId) as TotalOrders 
                                             from Customers
                                             join Orders on Customers.CustomerId = Orders.CustomerId1
                                             group by Customers.CustomerId) as Calculation on Calculation.CustomerId = Customers.CustomerId";

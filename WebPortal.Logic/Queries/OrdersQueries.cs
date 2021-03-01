@@ -46,16 +46,6 @@ namespace WebPortal.Logic.Queries
             }
         }
 
-        public List<ProductCategories> GetCategories()
-        {
-            var query = $@"select * from ProductCategories";
-
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                return db.Query<ProductCategories>(query).ToList();
-            }
-        }
-
         public List<OrderStatuses> GetOrderStatuses()
         {
             var query = $@"select * from OrdersStatuses";

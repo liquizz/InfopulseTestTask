@@ -8,6 +8,7 @@ namespace WebPortal.Logic.Queries.Interfaces
     {
         public GetProductsDTO GetProduct(int productId);
         public List<GetProductsDTO> GetProducts();
+        List<ProductCategories> GetCategories();
 
     }
 }

@@ -31,7 +31,17 @@ namespace WebPortal.Logic.Queries
                 return db.Query<GetProductsDTO>(query).FirstOrDefault();
             }
         }
+        
+        public List<ProductCategories> GetCategories()
+        {
+            var query = $@"select * from ProductCategories";
 
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<ProductCategories>(query).ToList();
+            }
+        }
+        
         public List<GetProductsDTO> GetProducts()
         {
             var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products

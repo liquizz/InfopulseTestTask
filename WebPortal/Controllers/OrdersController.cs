@@ -36,12 +36,6 @@ namespace WebPortal.API.Controllers
             return _ordersReadService.GetOrder(orderId);
         }
 
-        [HttpGet("Categories")] // TODO: MOVE TO PRODUCTS CONTROLLER/READ SERVICE (made by mistake)
-        public List<ProductCategories> GetCategories()
-        {
-            return _ordersReadService.GetCategories();
-        }
-
         [HttpGet("Statuses")]
         public List<OrderStatuses> GetOrderStatuses()
         {

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebPortal.Database.Models;
+using WebPortal.helpers;
 using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.ReadServices.Interfaces;
 using WebPortal.Logic.WriteServices.Interfaces;
@@ -24,18 +26,24 @@ namespace WebPortal.API.Controllers
             _productsWriteService = productsWriteService;
         }
 
-        [HttpGet("{productId}")] // Change to DTO
+        [HttpGet("{productId}")]
         public GetProductsDTO GetProduct(int productId)
         {
             return _productsReadService.GetProduct(productId);
         }
 
-        [HttpGet] // The same here, too
+        [HttpGet]
         public List<GetProductsDTO> GetProducts()
         {
             return _productsReadService.GetProducts();
         }
-
+        
+        [HttpGet("categories")]
+        public List<ProductCategories> GetCategories()
+        {
+            return _productsReadService.GetCategories();
+        }
+        
         [HttpPost("create")]
         public async Task<bool> CreateProduct([FromForm] CreateProductDTO createProductData)
         {
@@ -44,10 +52,12 @@ namespace WebPortal.API.Controllers
                 createProductData.ProductDescription, createProductData.ProductSizeId);
         }
 
-        [HttpDelete("delete")]
-        public object DeleteProduct([FromForm] DeleteProductDTO deleteProductData)
+        [HttpDelete("delete/{productId}")]
+        public object DeleteProduct(int productId)
         {
-            return _productsWriteService.DeleteProduct(deleteProductData.ProductId);
+            // var deserializedProductData = JsonDeserializeHelper.ToObject<DeleteProductDTO>(deleteProductData);
+            
+            return _productsWriteService.DeleteProduct(productId);
         }
 
         [HttpPost("update")]

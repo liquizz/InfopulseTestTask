@@ -26,11 +26,6 @@ namespace WebPortal.Logic.ReadServices
             return _queries.GetOrders();
         }
 
-        public List<ProductCategories> GetCategories()
-        {
-            return _queries.GetCategories();
-        }
-
         public List<OrderStatuses> GetOrderStatuses()
         {
             return _queries.GetOrderStatuses();

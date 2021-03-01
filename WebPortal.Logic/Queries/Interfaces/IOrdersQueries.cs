@@ -8,7 +8,6 @@ namespace WebPortal.Logic.Queries.Interfaces
     {
         GetOrderDTO GetOrder(int orderId);
         List<GetOrderDTO> GetOrders();
-        List<ProductCategories> GetCategories();
         List<OrderStatuses> GetOrderStatuses();
     }
 }

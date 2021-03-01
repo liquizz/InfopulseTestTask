@@ -24,5 +24,10 @@ namespace WebPortal.Logic.ReadServices
         {
             return _queries.GetProducts();
         }
+        
+        public List<ProductCategories> GetCategories()
+        {
+            return _queries.GetCategories();
+        }
     }
 }

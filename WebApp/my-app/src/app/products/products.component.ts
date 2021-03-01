@@ -23,4 +23,15 @@ export class ProductsComponent implements OnInit {
       this.products = res;
     });
   }
+
+  onDeleteClicked(productId): void {
+    this.productsService.deleteProduct(productId).subscribe(response => {
+      if (productId === response.productId){
+        const index = this.products.indexOf(productId);
+        if (index > -1) {
+          this.products.splice(index, 1);
+        }
+      }
+    });
+  }
 }

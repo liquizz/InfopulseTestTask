@@ -1,1 +1,40 @@
-<p>create-product works!</p>
+<h3>New Product</h3>
+
+<form (ngSubmit)="onSubmitClicked(productForm)" #productForm="ngForm">
+  <p>Product Number: {{ products.length + 1 }}</p>
+  <p>Product Date: {{ date }}</p>
+
+  <div class="form-group">
+    <label for="name">Product Name: </label>
+    <input type="text" ngModel name="name" id="name" required>
+  </div>
+  <div class="form-group">
+    <label for="category">Product Category: </label>
+    <select
+      id="category"
+      class="form-control"
+      ngModel
+      name="category"
+      required
+    >
+      <option *ngFor="let category of categories">{{ category.categoryName }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="quantity">Available Quantity: </label>
+    <input type="text" ngModel name="quantity" id="quantity" required>
+  </div>
+  <div class="form-group">
+    <label for="price">Price: </label>
+    <input type="text" ngModel name="price" id="price" required>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" name="description" rows="3" ngModel></textarea>
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="!productForm.valid"
+  >Save</button>
+  <button routerLink="../">Cancel</button>
+</form>

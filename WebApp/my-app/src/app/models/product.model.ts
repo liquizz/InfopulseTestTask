@@ -1,8 +1,12 @@
 export interface Product {
-    productId: number;
-    name: string;
-    categoryName: string;
-    sizeName: string;
-    quantity: number;
-    price: number;
-  }
+  ProductId: number;
+  ProductName: string;
+  ProductCategoryId: number;
+  ProductSizeId: number;
+  Quantity: number;
+  Price: number;
+  ProductDate: Date;
+  ProductDescription: string;
+}
+
+

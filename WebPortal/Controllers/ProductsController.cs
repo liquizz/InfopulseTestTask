@@ -32,6 +32,12 @@ namespace WebPortal.API.Controllers
             return _productsReadService.GetProduct(productId);
         }
 
+        [HttpGet("sizes")]
+        public List<ProductSizes> GetSizes()
+        {
+            return _productsReadService.GetSizes();
+        }
+
         [HttpGet]
         public List<GetProductsDTO> GetProducts()
         {
@@ -45,11 +51,13 @@ namespace WebPortal.API.Controllers
         }
         
         [HttpPost("create")]
-        public async Task<bool> CreateProduct([FromForm] CreateProductDTO createProductData)
+        public async Task<bool> CreateProduct(JsonElement createProductData)
         {
-            return await _productsWriteService.CreateProduct(createProductData.ProductName, createProductData.ProductCategoryId,
-                createProductData.Quantity, createProductData.Price, createProductData.ProductDate,
-                createProductData.ProductDescription, createProductData.ProductSizeId);
+            var deserializedProductData = JsonDeserializeHelper.ToObject<CreateProductDTO>(createProductData);
+
+            return await _productsWriteService.CreateProduct(deserializedProductData.ProductName, deserializedProductData.ProductCategoryId,
+                deserializedProductData.Quantity, deserializedProductData.Price, deserializedProductData.ProductDate,
+                deserializedProductData.ProductDescription, deserializedProductData.ProductSizeId);
         }
 
         [HttpDelete("delete/{productId}")]

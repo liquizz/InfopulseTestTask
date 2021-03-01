@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Product} from '../models/product.model';
 import {Category} from '../models/category.model';
+import {Size} from '../models/size.model';
 
 @Injectable()
 export class ProductsService {
@@ -13,12 +14,16 @@ export class ProductsService {
 
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${URL}Products/`);
+  getProducts(): Observable<any> {
+    return this.http.get<any>(`${URL}Products/`);
   }
 
   getCategories(): Observable<Category[]>{
     return this.http.get<Category[]>(`${URL}Products/categories`);
+  }
+
+  getSizes(): Observable<Size[]> {
+    return this.http.get<Size[]>(`${URL}Products/sizes`);
   }
 
   deleteProduct(productId: number): Observable<Product>{
@@ -28,4 +33,6 @@ export class ProductsService {
   createProduct(product: Product): Observable<boolean>{
     return this.http.post<boolean>(`${URL}Products/create`, product);
   }
+
+
 }

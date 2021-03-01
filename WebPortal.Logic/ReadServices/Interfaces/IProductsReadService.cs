@@ -9,5 +9,6 @@ namespace WebPortal.Logic.ReadServices.Interfaces
         public GetProductsDTO GetProduct(int productId);
         public List<GetProductsDTO> GetProducts();
         List<ProductCategories> GetCategories();
+        List<ProductSizes> GetSizes();
     }
 }

@@ -7,16 +7,19 @@ import { CreateOrderComponent } from './orders/create-order/create-order.compone
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import {AddProductComponent} from './orders/add-product/add-product.component';
+import {ViewProductComponent} from './products/view-product/view-product.component';
 
 
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'customers', component: CustomersComponent },
   { path: 'products', component: ProductsComponent },
+  { path: 'products/:id', component: ViewProductComponent },
+  { path: 'products/new', component: CreateProductComponent },
   { path: 'orders/new', component: CreateOrderComponent },
   { path: 'orders/new/add-product', component: AddProductComponent },
   { path: 'customers/new', component: CreateCustomerComponent },
-  { path: 'products/new', component: CreateProductComponent }
+
 ];
 
 @NgModule({

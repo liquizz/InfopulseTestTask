@@ -53,5 +53,15 @@ namespace WebPortal.Logic.Queries
                 return db.Query<GetProductsDTO>(query).ToList();
             }
         }
+
+        public List<ProductSizes> GetSizes()
+        {
+            var query = $@"select * from dbo.ProductSizes;";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<ProductSizes>(query).ToList();
+            }
+        }
     }
 }

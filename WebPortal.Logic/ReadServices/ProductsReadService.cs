@@ -29,5 +29,10 @@ namespace WebPortal.Logic.ReadServices
         {
             return _queries.GetCategories();
         }
+
+        public List<ProductSizes> GetSizes()
+        {
+            return _queries.GetSizes();
+        }
     }
 }

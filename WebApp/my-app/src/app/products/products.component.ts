@@ -2,7 +2,15 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ProductsService} from './products.service';
-import {Product} from '../models/product.model';
+
+interface Product {
+  productId: number;
+  name: string;
+  categoryName: string;
+  sizeName: string;
+  quantity: number;
+  price: number;
+}
 
 @Component({
   selector: 'app-products',
@@ -26,7 +34,7 @@ export class ProductsComponent implements OnInit {
 
   onDeleteClicked(productId): void {
     this.productsService.deleteProduct(productId).subscribe(response => {
-      if (productId === response.productId){
+      if (productId === response.ProductId){
         const index = this.products.indexOf(productId);
         if (index > -1) {
           this.products.splice(index, 1);

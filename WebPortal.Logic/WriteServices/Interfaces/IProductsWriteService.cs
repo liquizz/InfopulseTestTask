@@ -6,8 +6,8 @@ namespace WebPortal.Logic.WriteServices.Interfaces
     public interface IProductsWriteService
     {
         Task<object> EditProduct(int productId, string productName, int productCategoryId, int quantity, int price,
-            DateTime productDate, string productDescription, int productSizeId);
-        public object DeleteProduct(int productId);
+            DateTime productDate, string productDescription, int productSizeId, int productDescriptionId);
+        public Task<bool> DeleteProduct(int productId);
 
         Task<bool> CreateProduct(string productName, int productCategoryId, int quantity, int price,
             DateTime timeCreated, string productDescription, int productSizeId);

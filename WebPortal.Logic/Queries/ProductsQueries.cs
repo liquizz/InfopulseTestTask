@@ -19,16 +19,18 @@ namespace WebPortal.Logic.Queries
             _connectionString = helper.ConnectionString;
         }
 
-        public GetProductsDTO GetProduct(int productId)
+        public GetProductDTO GetProduct(int productId)
         {
-            var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price from Products
+            var query = $@"select Products.ProductId, Products.Name, ProductCategories.CategoryName, ProductSizes.SizeName, Products.Quantity, Products.Price, Products.ProductDate, ProductDescriptions.Description, Products.ProductDescriptionId
+								from Products
                                 join ProductCategories on Products.ProductCategoriesCategoryId = ProductCategories.CategoryId
                                 join ProductSizes on Products.ProductSizesSizeId = ProductSizes.SizeId
+								join ProductDescriptions on ProductDescriptions.ProductDescriptionId = Products.ProductDescriptionId
                                 where Products.ProductId = {productId}";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<GetProductsDTO>(query).FirstOrDefault();
+                return db.Query<GetProductDTO>(query).FirstOrDefault();
             }
         }
         

@@ -15,7 +15,7 @@ namespace WebPortal.Logic.ReadServices
             _queries = queries;
         }
 
-        public GetProductsDTO GetProduct(int productId)
+        public GetProductDTO GetProduct(int productId)
         {
             return _queries.GetProduct(productId);
         }

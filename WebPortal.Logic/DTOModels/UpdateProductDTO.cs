@@ -10,6 +10,7 @@ namespace WebPortal.Logic.DTOModels
         public int Quantity { get; set; }
         public int Price { get; set; }
         public DateTime ProductDate { get; set; }
+        public int ProductDescriptionId { get; set; }
         public string ProductDescription { get; set; }
         public int ProductSizeId { get; set; }
     }

@@ -8,16 +8,18 @@ import { CreateCustomerComponent } from './customers/create-customer/create-cust
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import {AddProductComponent} from './orders/add-product/add-product.component';
 import {ViewProductComponent} from './products/view-product/view-product.component';
+import {EditProductComponent} from './products/edit-product/edit-product.component';
 
 
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
+  { path: 'orders/:id/new', component: CreateOrderComponent },
+  // { path: 'orders/:id/add-product/:productId', component: AddProductComponent },
   { path: 'customers', component: CustomersComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ViewProductComponent },
-  { path: 'products/new', component: CreateProductComponent },
-  { path: 'orders/new', component: CreateOrderComponent },
-  { path: 'orders/new/add-product', component: AddProductComponent },
+  { path: 'products/:id/new', component: CreateProductComponent },
+  { path: 'products/:id/edit', component: EditProductComponent },
   { path: 'customers/new', component: CreateCustomerComponent },
 
 ];

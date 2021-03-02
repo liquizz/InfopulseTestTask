@@ -1,1 +1,14 @@
-<p>view-product works!</p>
+<div>
+  <p>View Product</p>
+  <button class="btn btn-primary" routerLink="edit">Edit</button>
+  <button class="btn btn-primary" routerLink="../">Back</button>
+</div>
+
+<div>
+  <p>Product Number: {{ product.productId }}</p>
+  <p>Created Date: {{ product.productDate }}</p>
+  <p>Product Name: {{ product.name }}</p>
+  <p>Product Category: {{ product.categoryName }}</p>
+  <p>Product Quantity: {{ product.quantity }}</p>
+  <p>Description: {{ product.description }}</p>
+</div>

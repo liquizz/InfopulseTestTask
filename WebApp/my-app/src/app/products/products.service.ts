@@ -18,6 +18,10 @@ export class ProductsService {
     return this.http.get<any>(`${URL}Products/`);
   }
 
+  getProduct(productId: number): Observable<any> {
+    return this.http.get<any>(`${URL}Products/${productId}`);
+  }
+
   getCategories(): Observable<Category[]>{
     return this.http.get<Category[]>(`${URL}Products/categories`);
   }
@@ -34,5 +38,8 @@ export class ProductsService {
     return this.http.post<boolean>(`${URL}Products/create`, product);
   }
 
+  updateProduct(newProduct: Product): Observable<boolean> {
+    return this.http.post<boolean>(`${URL}Products/update`, newProduct);
+  }
 
 }

@@ -17,11 +17,10 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   customers: CustomerShort[];
   statuses: Status[];
-  products: Product[] = [];
+  products: any[] = [];
   orders: Order[] = [];
   comment: Comment;
   date: Date = new Date();
-  chosenCustomer: {customer: string, status: string, comment: string} = {customer: '', status: '', comment: ''};
   isAddButtonPressed = false;
 
   totalCost: number;
@@ -46,16 +45,22 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmitClicked(): void {
+  onSubmitClicked(order): void {
+    const formData = new FormData();
 
+    formData.append('customerId', order.customer);
+    formData.append('statusId', order.status);
+    formData.append('orderDate', this.date.toDateString());
+    formData.append('totalCost', this.totalCost.toString());
+    formData.append('productsList', JSON.stringify({}));
+
+    this.ordersService.createOrder(formData).subscribe(res => {
+      console.log(res);
+    });
   }
 
   onAddProductClicked(formData): void{
     this.isAddButtonPressed = true;
-  }
-
-  onGoBackClick = () => {
-    this.isAddButtonPressed = false;
   }
 
   ngOnDestroy(): void {

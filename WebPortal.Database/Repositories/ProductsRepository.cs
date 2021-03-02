@@ -21,6 +21,7 @@ namespace WebPortal.Database.Repositories
         {
             return _context.Products.Where(p => ids.Contains(p.ProductId)).ToList();
         }
+
         public async Task<ProductCategories> GetProductCategoryByIdAsync(int id)
         {
             return await _context.ProductCategories.FirstOrDefaultAsync(_ => _.CategoryId == id);
@@ -51,7 +52,7 @@ namespace WebPortal.Database.Repositories
         public ProductDescriptions UpdateDescription(ProductDescriptions descriptions)
         {
             var description = _context.ProductDescriptions.Update(descriptions).Entity;
-            return descriptions;
+            return description;
         }
         public Products UpdateProduct(Products products)
         {
@@ -61,8 +62,8 @@ namespace WebPortal.Database.Repositories
 
         public Products DeleteProductsById(int id)
         {
-            var product = GetProductsByIdsAsync(new List<int>() {id});
-
+            var product = GetProductsByIdsAsync(new List<int> { id } );
+            
             var result = _context.Products.Remove(product.FirstOrDefault());
 
             return result.Entity;

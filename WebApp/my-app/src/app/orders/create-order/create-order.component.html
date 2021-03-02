@@ -1,6 +1,6 @@
 <h1>Create Order</h1>
 
-<form (ngSubmit)="onSubmitClicked()" #orderForm="ngForm">
+<form (ngSubmit)="onSubmitClicked(orderForm.value)" #orderForm="ngForm">
   <p>Order Number: {{ orders.length + 1 }}</p>
   <p>Order Date: {{ date }}</p>
   <div class="form-group">
@@ -8,11 +8,11 @@
     <select
       id="customer"
       class="form-control"
-      [ngModel]="chosenCustomer"
+      [ngModel]=""
       name="customer"
       required
     >
-      <option *ngFor="let customer of customers" [value]="customer.name">{{ customer.name }}</option>
+      <option *ngFor="let customer of customers" [value]="customer.customerId">{{ customer.name }}</option>
     </select>
   </div>
   <div class="form-group">
@@ -24,14 +24,13 @@
       name="status"
       required
     >
-      <option *ngFor="let status of statuses" [value]="status.statusName">{{ status.statusName }}</option>
+      <option *ngFor="let status of statuses" [value]="status.statusId">{{ status.statusName }}</option>
     </select>
   </div>
   <p>Total Cost: $ {{ totalCost }}</p>
   <button class="btn btn-primary"
           (click)="onAddProductClicked(orderForm.value)">Add Products to Order</button>
-  <div *ngIf="products.length < 1">No products here... yet :)</div>
-  <div *ngIf="products.length >= 1">
+  <table>
     <thead>
     <tr>
       <td>Product Id</td>
@@ -43,15 +42,16 @@
     </thead>
     <tbody>
     <tr *ngFor="let product of products">
-      <td>{{product.ProductId}}</td>
-      <td>{{product.ProductName}}</td>
-      <td>{{product.Quantity}}</td>
-      <td>{{product.Price}}</td>
+      <td><a [routerLink]="['../add-product', product.productId]">{{product.productId}}</a></td>
+      <td>{{product.name}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price}}</td>
     </tr>
     </tbody>
-  </div>
+  </table>
+
   <div class="form-group">
-    <textarea class="form-control" name="comment" rows="3" [(ngModel)]="comment"></textarea>
+    <textarea class="form-control" name="comment" rows="3" [textContent]="'some text'" [(ngModel)]="comment"></textarea>
   </div>
   <button
     class="btn btn-primary"
@@ -60,3 +60,7 @@
   >Save</button>
   <button routerLink="../">Cancel</button>
 </form>
+
+<div>
+  <p>Add Product to order:</p>
+</div>

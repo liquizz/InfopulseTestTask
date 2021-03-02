@@ -27,7 +27,7 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpGet("{productId}")]
-        public GetProductsDTO GetProduct(int productId)
+        public GetProductDTO GetProduct(int productId)
         {
             return _productsReadService.GetProduct(productId);
         }
@@ -69,11 +69,15 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<object> UpdateProduct([FromForm] UpdateProductDTO updateProductData)
+        public async Task<object> UpdateProduct(JsonElement updateProductData)
         {
-            return await _productsWriteService.EditProduct(updateProductData.ProductId, updateProductData.ProductName,
-                updateProductData.ProductCategoryId, updateProductData.Quantity, updateProductData.Price,
-                updateProductData.ProductDate, updateProductData.ProductDescription, updateProductData.ProductSizeId);
+            var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateProductDTO>(updateProductData);
+            
+
+            return await _productsWriteService.EditProduct(deserializedProductData.ProductId, deserializedProductData.ProductName,
+                deserializedProductData.ProductCategoryId, deserializedProductData.Quantity, deserializedProductData.Price,
+                deserializedProductData.ProductDate, deserializedProductData.ProductDescription, deserializedProductData.ProductSizeId, 
+                deserializedProductData.ProductDescriptionId);
         }
 
     }

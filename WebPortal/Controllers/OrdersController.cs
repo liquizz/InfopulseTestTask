@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebPortal.Database.Models;
+using WebPortal.helpers;
 using WebPortal.Logic.DTOModels;
 using WebPortal.Logic.ReadServices.Interfaces;
 using WebPortal.Logic.WriteServices.Interfaces;
@@ -45,6 +46,8 @@ namespace WebPortal.API.Controllers
         [HttpPost]
         public async Task<bool> CreateOrder([FromForm] CreateOrderDTO createOrderData)
         {
+            //var deserializedProductData = JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
+
             return await _ordersWriteService.CreateOrder(createOrderData.OrderDate, createOrderData.CustomerId,
                 createOrderData.StatusId, createOrderData.TotalCost, createOrderData.ProductsList);
         }

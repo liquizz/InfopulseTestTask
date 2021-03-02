@@ -39,8 +39,7 @@ export default class OrdersService {
       return this.http.get<Order[]>(`${URL}Orders/`);
     }
 
-    putChosenCustomer(customer: CustomerShort): void{
-      this.chosenCustomer = customer;
+    createOrder(order: FormData): Observable<boolean>{
+      return this.http.post<boolean>(`${URL}Orders/`, order);
     }
-
 }

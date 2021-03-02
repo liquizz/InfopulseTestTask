@@ -27,17 +27,18 @@ namespace WebPortal.Logic.WriteServices
             return await _productsRepository.SaveChangesAsync();
         }
 
-        public object DeleteProduct(int productId)
+        public async Task<bool> DeleteProduct(int productId)
         {
-            return _productsRepository.DeleteProductsById(productId);
+            _productsRepository.DeleteProductsById(productId);
+            return await _productsRepository.SaveChangesAsync();
         }
 
-        public async Task<object> EditProduct(int productId, string productName, int productCategoryId, int quantity, int price, DateTime productDate, string productDescription, int productSizeId)
+        public async Task<object> EditProduct(int productId, string productName, int productCategoryId, int quantity, int price, DateTime productDate, string productDescription, int productSizeId, int productDescriptionId)
         {
             var product = _productsRepository.GetProductsByIdsAsync(new List<int>() {productId}).FirstOrDefault();
             var category = _productsRepository.GetProductCategoryByIdAsync(productCategoryId).Result;
             var size = _productsRepository.GetProductSizeByIdAsync(productSizeId).Result;
-            var description = _productsRepository.GetProductDescriptionsByIdAsync(product.ProductDescription.ProductDescriptionId).Result;
+            var description = _productsRepository.GetProductDescriptionsByIdAsync(productDescriptionId).Result;
 
             description.Description = productDescription;
 

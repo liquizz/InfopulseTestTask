@@ -6,7 +6,7 @@ namespace WebPortal.Logic.ReadServices.Interfaces
 {
     public interface IProductsReadService
     {
-        public GetProductsDTO GetProduct(int productId);
+        public GetProductDTO GetProduct(int productId);
         public List<GetProductsDTO> GetProducts();
         List<ProductCategories> GetCategories();
         List<ProductSizes> GetSizes();

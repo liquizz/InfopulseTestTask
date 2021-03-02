@@ -51,7 +51,8 @@ export class CreateProductComponent implements OnInit {
       Quantity: +form.quantity,
       Price: +form.price,
       ProductDate: this.date,
-      ProductDescription: form.description
+      ProductDescription: form.description,
+      ProductDescriptionId: undefined
     };
     this.productsService.createProduct(newProduct).subscribe(() => {
       this.isSuccessful = true;

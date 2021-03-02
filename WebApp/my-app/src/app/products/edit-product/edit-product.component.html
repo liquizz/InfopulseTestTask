@@ -1,8 +1,10 @@
-<h3>New Product</h3>
+<div>
+  <p>Edit Product</p>
+</div>
 
 <form (ngSubmit)="onSubmitClicked(productForm.value)" #productForm="ngForm">
-  <p>Product Number: {{ products.length + 1 }}</p>
-  <p>Product Date: {{ date }}</p>
+  <p>Product Number: {{ productId }}</p>
+  <p>Product Date: {{ product.ProductDate }}</p>
 
   <div class="form-group">
     <label for="name">Product Name: </label>
@@ -13,7 +15,7 @@
     <select
       id="category"
       class="form-control"
-      ngModel
+      [ngModel]="currentCategoryName"
       name="category"
       required
     >
@@ -25,11 +27,11 @@
     <select
       id="size"
       class="form-control"
-      ngModel
+      [ngModel]="currentSizeName"
       name="size"
       required
     >
-      <option *ngFor="let size of sizes" [value]="size.sizeName" >{{ size.sizeName }}</option>
+      <option *ngFor="let size of sizes" [value]="size.sizeName">{{ size.sizeName }}</option>
     </select>
   </div>
   <div class="form-group">

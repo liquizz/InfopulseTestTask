@@ -18,7 +18,7 @@ interface Product {
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: Product[];
+  products: Product[] = [];
 
   constructor(
     private http: HttpClient,

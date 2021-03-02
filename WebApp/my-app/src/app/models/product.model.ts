@@ -7,6 +7,7 @@ export interface Product {
   Price: number;
   ProductDate: Date;
   ProductDescription: string;
+  ProductDescriptionId: number;
 }
 
 

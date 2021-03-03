@@ -20,21 +20,39 @@ namespace WebPortal.Logic.WriteServices
             _customerRepository = customerRepository;
         }
 
-        public async Task<bool> CreateOrder(DateTime orderDate, int customerId, int statusId, int totalCost, List<int> productsList)
+        public async Task<Orders> CreateOrder(DateTime orderDate, int customerId, int statusId, int totalCost, List<int> productsList)
         {
             // GET Products by ids
             // Create order && add products
             // Savechanges
 
-            var products = _productsRepository.GetProductsByIdsAsync(productsList);
+            Orders newOrder;
+            
+            if (orderDate != null && productsList != null)
+            {
+                var products = _productsRepository.GetProductsByIdsAsync(productsList);
 
-            var newOrder = new Orders() {};
+                newOrder = new Orders()
+                {
+                    CustomerId = await _customerRepository.GetCustomerByIdAsync(customerId),
+                    OrderStatuses = await _ordersRepository.GetOrderStatusesByIdAsync(statusId),
+                    FinalPrice = totalCost,
+                    Products = products,
+                    OrderDateCreated = orderDate
+                };
 
-            newOrder.Products.AddRange(products);
+                newOrder.Products.AddRange(products);
+            }
+            else
+            {
+                newOrder = new Orders() {OrderDateCreated = orderDate};
+            }
+            
+            var result = await _ordersRepository.AddOrders(newOrder);
 
-            await _ordersRepository.AddOrders(newOrder);
-
-            return await _ordersRepository.SaveChangesAsync();
+            await _ordersRepository.SaveChangesAsync();
+            
+            return result;
         }
 
         public async Task<bool> EditOrder(int orderId, DateTime orderDate, int customerId, int statusId, int totalCost, List<int> productsList)

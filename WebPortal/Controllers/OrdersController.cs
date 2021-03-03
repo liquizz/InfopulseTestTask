@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebPortal.Database.Models;
 using WebPortal.helpers;
@@ -44,19 +45,23 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateOrder([FromForm] CreateOrderDTO createOrderData)
+        public async Task<Orders> CreateOrder(JsonElement createOrderData)
         {
-            //var deserializedProductData = JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
+            var deserializedProductData = JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
 
-            return await _ordersWriteService.CreateOrder(createOrderData.OrderDate, createOrderData.CustomerId,
-                createOrderData.StatusId, createOrderData.TotalCost, createOrderData.ProductsList);
+            return await _ordersWriteService.CreateOrder(deserializedProductData.OrderDate, deserializedProductData.CustomerId,
+                deserializedProductData.StatusId, deserializedProductData.TotalCost, 
+                deserializedProductData.ProductsList);
         }
         
         [HttpPost("{orderId}")] // TODO: MAKE A PATH!
-        public async Task<bool> UpdateOrder([FromForm] UpdateOrderDTO updateOrderData)
+        public async Task<bool> UpdateOrder(JsonElement updateOrderData, int orderId)
         {
-            return await _ordersWriteService.CreateOrder(updateOrderData.orderDate, updateOrderData.customerId,
-                updateOrderData.statusId, updateOrderData.totalCost, updateOrderData.productsList);
+            var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateOrderDTO>(updateOrderData);
+            
+            return await _ordersWriteService.EditOrder(orderId, deserializedProductData.OrderDate, 
+                deserializedProductData.CustomerId, deserializedProductData.StatusId, 
+                deserializedProductData.TotalCost, deserializedProductData.ProductsList);
         }
     }
 }

@@ -14,7 +14,7 @@ import {EditProductComponent} from './products/edit-product/edit-product.compone
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'orders/:id/new', component: CreateOrderComponent },
-  // { path: 'orders/:id/add-product/:productId', component: AddProductComponent },
+  { path: 'orders/:id/add-product', component: AddProductComponent },
   { path: 'customers', component: CustomersComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ViewProductComponent },

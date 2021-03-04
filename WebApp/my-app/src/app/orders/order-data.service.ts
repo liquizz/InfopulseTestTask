@@ -8,7 +8,14 @@ import {BehaviorSubject, Subject} from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class OrdersDataService {
   chosenProducts: Product[] = [];
-  currentOrder: Order = {address: '', finalPrice: 0, name: '', orderId: 0, statusName: ''};
+  currentOrder: Order = {
+    comment: '',
+    customerId: 0,
+    orderDate: undefined,
+    orderId: 0,
+    productsList: [],
+    statusId: 0,
+    totalCost: 0};
 
   private chosenProductsChanged = new BehaviorSubject<any>(this.chosenProducts);
   private currentOrderChanged = new BehaviorSubject<any>(this.currentOrder);

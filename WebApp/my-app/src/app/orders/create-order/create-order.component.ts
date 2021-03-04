@@ -8,6 +8,7 @@ import {Product} from '../../models/product.model';
 import Order from '../../models/order.model';
 import OrdersService from '../orders.service';
 import {OrdersDataService} from '../order-data.service';
+import OrderShort from '../../models/order-short.model';
 
 @Component({
   selector: 'app-create-order',
@@ -18,13 +19,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   customers: CustomerShort[];
   statuses: Status[];
-  chosenProducts: any[] = [];
-  orders: Order[] = [];
+  chosenProducts: any[] = []; // TODO: Change this later
+  orders: OrderShort[] = [];
   comment: Comment;
   date: Date = new Date();
-  isAddButtonPressed = false;
 
   currentOrderId: number;
+  currentOrder: Order;
 
   totalCost: number;
 
@@ -32,11 +33,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private ordersService: OrdersService,
     private ordersDataService: OrdersDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.ordersService.fetchOrdersData().subscribe((response: Order[]) => {
+    this.ordersService.fetchOrdersData().subscribe((response: OrderShort[]) => {
       this.orders = response;
     });
     this.ordersService.fetchShortCustomersData().subscribe((response: CustomerShort[]) => {
@@ -49,6 +51,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     //   this.products = response;
     // });
     this.currentOrderId = this.route.snapshot.params.id;
+    this.ordersDataService.chosenProductsChangedObservable.subscribe(res => {
+      this.chosenProducts = res;
+    });
   }
 
   onSubmitClicked(order): void {
@@ -65,8 +70,23 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     // });
   }
 
-  onAddProductClicked(formData): void{
-    this.isAddButtonPressed = true;
+  onAddProductClicked(formData: {
+    customer: number,
+    status: number,
+    comment: string
+  }): void{
+    const updatedOrder: Order = {
+      customerId: formData.customer,
+      orderDate: this.date,
+      orderId: this.currentOrderId,
+      productsList: this.chosenProducts,
+      statusId: formData.status,
+      totalCost: 0, // Calculate here
+      comment: formData.comment
+    };
+
+    this.ordersDataService.changeOrder(updatedOrder);
+    this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product']);
   }
 
   ngOnDestroy(): void {

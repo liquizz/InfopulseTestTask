@@ -10,8 +10,7 @@ import {OrdersDataService} from './order-data.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css'],
-  providers: [OrdersService]
+  styleUrls: ['./orders.component.css']
 })
 
 export class OrdersComponent implements OnInit {

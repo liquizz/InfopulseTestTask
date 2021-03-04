@@ -7,6 +7,7 @@ import Status from '../models/status.model';
 import { Product } from '../models/product.model';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import Customer from '../models/customer.model';
+import OrderShort from '../models/order-short.model';
 
 @Injectable()
 export default class OrdersService {
@@ -35,8 +36,8 @@ export default class OrdersService {
       return this.http.get<Product[]>(`${URL}Products/`);
     }
 
-    fetchOrdersData(): Observable<Order[]>{
-      return this.http.get<Order[]>(`${URL}Orders/`);
+    fetchOrdersData(): Observable<OrderShort[]>{
+      return this.http.get<OrderShort[]>(`${URL}Orders/`);
     }
 
     createOrder(order: Order): Observable<Order>{

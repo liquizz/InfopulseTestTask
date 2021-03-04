@@ -5,3 +5,4 @@ export default interface Order{
     finalPrice: number;
     statusName: string;
   }
+

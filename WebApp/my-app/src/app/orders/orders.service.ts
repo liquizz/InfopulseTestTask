@@ -39,7 +39,11 @@ export default class OrdersService {
       return this.http.get<Order[]>(`${URL}Orders/`);
     }
 
-    createOrder(order: FormData): Observable<boolean>{
-      return this.http.post<boolean>(`${URL}Orders/`, order);
+    createOrder(order: Order): Observable<Order>{
+      return this.http.post<Order>(`${URL}Orders/`, order);
+    }
+
+    updateOrder(order: Order): Observable<boolean>{
+      return this.http.post<boolean>(`${URL}Orders/${order.orderId}`, order);
     }
 }

@@ -1,6 +1,6 @@
 <h1>Orders</h1>
 
-<a [routerLink]="[orders.length + 1, 'new']" >New Order</a>
+<button (click)="onNewOrderClicked()">New Order</button>
 
 <div>
   <table>

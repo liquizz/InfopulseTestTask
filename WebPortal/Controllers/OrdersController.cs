@@ -54,7 +54,7 @@ namespace WebPortal.API.Controllers
                 deserializedProductData.ProductsList);
         }
         
-        [HttpPost("{orderId}")] // TODO: MAKE A PATH!
+        [HttpPost("{orderId}")]
         public async Task<bool> UpdateOrder(JsonElement updateOrderData, int orderId)
         {
             var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateOrderDTO>(updateOrderData);

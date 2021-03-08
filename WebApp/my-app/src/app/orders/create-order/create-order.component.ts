@@ -54,20 +54,28 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.ordersDataService.chosenProductsChangedObservable.subscribe(res => {
       this.chosenProducts = res;
     });
+    this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
+      this.currentOrder = res;
+    });
   }
 
-  onSubmitClicked(order): void {
-    // const formData = new FormData();
-    //
-    // formData.append('customerId', order.customer);
-    // formData.append('statusId', order.status);
-    // formData.append('orderDate', this.date.toDateString());
-    // formData.append('totalCost', this.totalCost.toString());
-    // formData.append('productsList', JSON.stringify({}));
-    //
-    // this.ordersService.createOrder(formData).subscribe(res => {
-    //   console.log(res);
-    // });
+  onSubmitClicked(formData): void {
+    const updatedOrder: Order = {
+      customerId: formData.customer,
+      orderDate: this.date,
+      orderId: this.currentOrderId,
+      productsList: this.chosenProducts,
+      statusId: formData.status,
+      totalCost: 0, // TODO: Make a calculation
+      comment: formData.comment
+    };
+
+    this.ordersService.updateOrder(updatedOrder).subscribe(res => {
+
+      }, error => {
+      console.log(error);
+    });
+    this.router.navigate(['orders']);
   }
 
   onAddProductClicked(formData: {
@@ -81,11 +89,17 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       orderId: this.currentOrderId,
       productsList: this.chosenProducts,
       statusId: formData.status,
-      totalCost: 0, // Calculate here
+      totalCost: 0, // TODO: Make a calculation
       comment: formData.comment
     };
 
     this.ordersDataService.changeOrder(updatedOrder);
+    this.ordersService.updateOrder(updatedOrder).subscribe(res => {
+
+    }, error => {
+        console.log(error);
+      }
+      );
     this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product']);
   }
 

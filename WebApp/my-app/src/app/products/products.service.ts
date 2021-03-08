@@ -30,8 +30,8 @@ export class ProductsService {
     return this.http.get<Size[]>(`${URL}Products/sizes`);
   }
 
-  deleteProduct(productId: number): Observable<Product>{
-    return this.http.delete<Product>(`${URL}Products/delete/${productId}`);
+  deleteProduct(productId: number): Observable<boolean>{
+    return this.http.delete<boolean>(`${URL}Products/delete/${productId}`);
   }
 
   createProduct(product: Product): Observable<boolean>{

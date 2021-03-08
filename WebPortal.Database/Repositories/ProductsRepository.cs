@@ -64,9 +64,9 @@ namespace WebPortal.Database.Repositories
         {
             var product = GetProductsByIdsAsync(new List<int> { id } );
             
-            var result = _context.Products.Remove(product.FirstOrDefault());
+            var result = _context.Products.Remove(product.FirstOrDefault()).Entity;
 
-            return result.Entity;
+            return result;
         }
 
         public async Task<bool> SaveChangesAsync()

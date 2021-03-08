@@ -34,10 +34,12 @@ export class ProductsComponent implements OnInit {
 
   onDeleteClicked(productId): void {
     this.productsService.deleteProduct(productId).subscribe(response => {
-      if (productId === response.ProductId){
-        const index = this.products.indexOf(productId);
+      if (response === true){
+        const index = this.products.findIndex(el => el.productId === productId);
         if (index > -1) {
           this.products.splice(index, 1);
+        } else {
+          console.log('Object already deleted!');
         }
       }
     });

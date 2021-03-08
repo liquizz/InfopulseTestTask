@@ -15,7 +15,8 @@ export class OrdersDataService {
     orderId: 0,
     productsList: [],
     statusId: 0,
-    totalCost: 0};
+    totalCost: 0
+  };
 
   private chosenProductsChanged = new BehaviorSubject<any>(this.chosenProducts);
   private currentOrderChanged = new BehaviorSubject<any>(this.currentOrder);

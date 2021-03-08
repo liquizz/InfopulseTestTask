@@ -9,10 +9,12 @@ import { CreateProductComponent } from './products/create-product/create-product
 import {AddProductComponent} from './orders/add-product/add-product.component';
 import {ViewProductComponent} from './products/view-product/view-product.component';
 import {EditProductComponent} from './products/edit-product/edit-product.component';
+import {ViewOrderComponent} from './orders/view-order/view-order.component';
 
 
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
+  { path: 'orders/:id', component: ViewOrderComponent },
   { path: 'orders/:id/new', component: CreateOrderComponent },
   { path: 'orders/:id/add-product', component: AddProductComponent },
   { path: 'customers', component: CustomersComponent },

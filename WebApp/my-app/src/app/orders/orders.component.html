@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let order of orders">
-      <td>{{order.orderId}}</td>
+      <td><a [routerLink]="[order.orderId]">{{order.orderId}}</a></td>
       <td>{{order.name}}</td>
       <td>{{order.address}}</td>
       <td>{{order.finalPrice}}</td>

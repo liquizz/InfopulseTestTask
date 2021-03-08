@@ -61,11 +61,9 @@ namespace WebPortal.API.Controllers
         }
 
         [HttpDelete("delete/{productId}")]
-        public object DeleteProduct(int productId)
+        public async Task<bool> DeleteProduct(int productId)
         {
-            // var deserializedProductData = JsonDeserializeHelper.ToObject<DeleteProductDTO>(deleteProductData);
-            
-            return _productsWriteService.DeleteProduct(productId);
+            return await _productsWriteService.DeleteProduct(productId);
         }
 
         [HttpPost("update")]

@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import OrdersService from '../orders.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrdersDataService} from '../order-data.service';
@@ -6,14 +6,15 @@ import Order from '../../models/order.model';
 import {Product} from '../../models/product.model';
 import {ProductsService} from '../../products/products.service';
 import {Size} from '../../models/size.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit, DoCheck {
-  @Input('productId') productField;
+export class AddProductComponent implements OnInit, OnDestroy {
+  private currentOrderSubscription: Subscription;
 
   products: any[] = []; // TODO: Refactor products type && logic
   sizes: Size[] = [];
@@ -50,7 +51,7 @@ export class AddProductComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit(): void {
-    this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
+    this.currentOrderSubscription = this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
       this.currentOrder = res;
     });
     this.productsService.getProducts().subscribe((res: {
@@ -68,17 +69,34 @@ export class AddProductComponent implements OnInit, DoCheck {
     });
   }
 
-  ngDoCheck(): void {
-    console.log('ngDoCheck');
+  onSubmitClicked(orderForm: {
+    productId: number,
+    quantity: number,
+    sizeId: number
+  }): void{
+    // const chosenProduct: Product = {
+    //   Price: 0,
+    //   ProductCategoryId: 0,
+    //   ProductDate: undefined,
+    //   ProductDescription: '',
+    //   ProductDescriptionId: 0,
+    //   ProductId: 0,
+    //   ProductName: '',
+    //   ProductSizeId: 0,
+    //   Quantity: 0
+    // };
 
-  }
-
-  onSubmitClicked(orderForm): void{
-
+    this.productsService.getProduct(orderForm.productId).subscribe(res => {
+      this.ordersDataService.addChosenProduct(res);
+      this.router.navigate(['orders', this.route.snapshot.params.id, 'new']);
+    });
   }
 
   onGoBackClick = () => {
     this.router.navigate(['orders', this.route.snapshot.params.id, 'new']);
   }
 
+  ngOnDestroy(): void {
+    this.currentOrderSubscription.unsubscribe();
+  }
 }

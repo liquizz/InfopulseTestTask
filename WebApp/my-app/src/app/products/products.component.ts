@@ -44,4 +44,9 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+
+  onNewProductClicked = () => {
+    this.router.navigate(['products', this.products.length + 1, 'new']);
+    // TODO: Fix this later, create product first, then fetch productId
+  }
 }

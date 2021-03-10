@@ -6,9 +6,11 @@ import CustomerShort from '../../models/customer-short.model';
 import Status from '../../models/status.model';
 import {Product} from '../../models/product.model';
 import Order from '../../models/order.model';
-import OrdersService from '../orders.service';
+import {OrdersService} from '../orders.service';
 import {OrdersDataService} from '../order-data.service';
 import OrderShort from '../../models/order-short.model';
+import {Subscription} from 'rxjs';
+import {DateHelper} from '../../helpers/date-helper';
 
 @Component({
   selector: 'app-create-order',
@@ -16,6 +18,9 @@ import OrderShort from '../../models/order-short.model';
   styleUrls: ['./create-order.component.css']
 })
 export class CreateOrderComponent implements OnInit, OnDestroy {
+  currentOrderChangedSubscription: Subscription;
+  currentChosenProductsSubscription: Subscription;
+
 
   customers: CustomerShort[];
   statuses: Status[];
@@ -23,6 +28,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   orders: OrderShort[] = [];
   comment: Comment;
   date: Date = new Date();
+  formattedDate = DateHelper.convertDateToReadableString(this.date);
 
   currentOrderId: number;
   currentOrder: Order;
@@ -35,7 +41,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private ordersDataService: OrdersDataService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.totalCost = 0;
+  }
 
   ngOnInit(): void {
     this.ordersService.fetchOrdersData().subscribe((response: OrderShort[]) => {
@@ -51,22 +59,33 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     //   this.products = response;
     // });
     this.currentOrderId = this.route.snapshot.params.id;
-    this.ordersDataService.chosenProductsChangedObservable.subscribe(res => {
+    this.currentChosenProductsSubscription = this.ordersDataService.chosenProductsChangedObservable.subscribe(res => {
       this.chosenProducts = res;
     });
-    this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
+    this.currentOrderChangedSubscription = this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
       this.currentOrder = res;
     });
+    if (this.chosenProducts.length > 0){
+      this.totalCost = this.calculateTotalCost(this.chosenProducts);
+    }
+  }
+
+  calculateTotalCost = (productsArray): number => {
+    let finalSum = 0;
+    productsArray.map(el => {
+      finalSum += (el.Quantity * el.Price);
+    });
+    return finalSum;
   }
 
   onSubmitClicked(formData): void {
     const updatedOrder: Order = {
-      customerId: formData.customer,
+      customerId: +formData.customer,
       orderDate: this.date,
-      orderId: this.currentOrderId,
+      orderId: +this.currentOrderId,
       productsList: this.chosenProducts,
-      statusId: formData.status,
-      totalCost: 0, // TODO: Make a calculation
+      statusId: +formData.status,
+      totalCost: this.totalCost,
       comment: formData.comment
     };
 
@@ -94,12 +113,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     };
 
     this.ordersDataService.changeOrder(updatedOrder);
-    this.ordersService.updateOrder(updatedOrder).subscribe(res => {
-
-    }, error => {
-        console.log(error);
-      }
-      );
+    // this.ordersService.updateOrder(updatedOrder).subscribe(res => { Bad idea (probably)
+    //
+    // }, error => {
+    //     console.log(error);
+    //   }
+    //   );
     this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product']);
   }
 

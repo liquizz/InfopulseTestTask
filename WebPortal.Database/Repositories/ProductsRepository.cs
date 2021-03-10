@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using WebPortal.Database.Models;
 using WebPortal.Database.Repositories.Interfaces;
 
@@ -47,6 +48,12 @@ namespace WebPortal.Database.Repositories
         {
             var product = await _context.Products.AddAsync(products);
             return product.Entity;
+        }
+
+        public async Task<OrdersProducts> AddOrderProduct(OrdersProducts ordersProduct)
+        {
+            var newOrdersProducts = await _context.OrdersProducts.AddAsync(ordersProduct);
+            return newOrdersProducts.Entity;
         }
 
         public ProductDescriptions UpdateDescription(ProductDescriptions descriptions)

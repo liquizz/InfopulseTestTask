@@ -16,5 +16,6 @@ namespace WebPortal.Database.Repositories.Interfaces
         Task<ProductDescriptions> GetProductDescriptionsByIdAsync(int id);
         ProductDescriptions UpdateDescription(ProductDescriptions descriptions);
         Products UpdateProduct(Products products);
+        Task<OrdersProducts> AddOrderProduct(OrdersProducts ordersProduct);
     }
 }

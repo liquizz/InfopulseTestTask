@@ -4,6 +4,7 @@ import CustomerShort from '../models/customer-short.model';
 import Status from '../models/status.model';
 import {Product} from '../models/product.model';
 import {BehaviorSubject, Subject} from 'rxjs';
+import {ChosenProductModel} from '../models/chosen-product.model';
 
 @Injectable({providedIn: 'root'})
 export class OrdersDataService {

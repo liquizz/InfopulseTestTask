@@ -1,14 +1,19 @@
-<div>
-  <p>View Product</p>
-  <button class="btn btn-primary" routerLink="edit">Edit</button>
-  <button class="btn btn-primary" routerLink="../">Back</button>
+<div class="custom-container">
+  <div class="row justify-content-between">
+    <h3 class="col-4">View Product</h3>
+    <div class="col-1 btn-group-custom">
+      <button class="btn btn-primary" routerLink="edit">Edit</button>
+      <button class="btn btn-primary" routerLink="../">Back</button>
+    </div>
+  </div>
+
+  <div>
+    <p><strong>Product Number:</strong> {{ product.productId }}</p>
+    <p><strong>Created Date:</strong> {{ formattedDate }}</p>
+    <p><strong>Product Name:</strong> {{ product.name }}</p>
+    <p><strong>Product Category:</strong> {{ product.categoryName }}</p>
+    <p><strong>Product Quantity:</strong> {{ product.quantity }}</p>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+  </div>
 </div>
 
-<div>
-  <p>Product Number: {{ product.productId }}</p>
-  <p>Created Date: {{ product.productDate }}</p>
-  <p>Product Name: {{ product.name }}</p>
-  <p>Product Category: {{ product.categoryName }}</p>
-  <p>Product Quantity: {{ product.quantity }}</p>
-  <p>Description: {{ product.description }}</p>
-</div>

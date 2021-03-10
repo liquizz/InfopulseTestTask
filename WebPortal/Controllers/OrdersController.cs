@@ -32,6 +32,12 @@ namespace WebPortal.API.Controllers
             return _ordersReadService.GetOrders();
         }
 
+        [HttpGet("{orderId}/products")]
+        public List<GetOrdersProducts> GetOrdersProducts(int orderId)
+        {
+            return _ordersReadService.GetOrdersProducts(orderId);
+        }
+        
         [HttpGet("{orderId}")]
         public GetOrderDTO GetOrder(int orderId)
         {
@@ -49,9 +55,9 @@ namespace WebPortal.API.Controllers
         {
             var deserializedProductData = JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
 
-            return await _ordersWriteService.CreateOrder(deserializedProductData.OrderDate, deserializedProductData.CustomerId,
-                deserializedProductData.StatusId, deserializedProductData.TotalCost, 
-                deserializedProductData.ProductsList);
+            return await _ordersWriteService.CreateOrder(deserializedProductData.orderDate, deserializedProductData.customerId,
+                deserializedProductData.statusId, deserializedProductData.totalCost, 
+                deserializedProductData.productsList);
         }
         
         [HttpPost("{orderId}")]
@@ -59,9 +65,9 @@ namespace WebPortal.API.Controllers
         {
             var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateOrderDTO>(updateOrderData);
             
-            return await _ordersWriteService.EditOrder(orderId, deserializedProductData.OrderDate, 
-                deserializedProductData.CustomerId, deserializedProductData.StatusId, 
-                deserializedProductData.TotalCost, deserializedProductData.ProductsList);
+            return await _ordersWriteService.EditOrder(orderId, deserializedProductData.orderDate, 
+                deserializedProductData.customerId, deserializedProductData.statusId, 
+                deserializedProductData.totalCost, deserializedProductData.productsList);
         }
     }
 }

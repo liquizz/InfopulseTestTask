@@ -8,9 +8,11 @@ import { Product } from '../models/product.model';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import Customer from '../models/customer.model';
 import OrderShort from '../models/order-short.model';
+import {OrdersProducts} from '../models/orders-products.model';
+import {FullOrder} from '../models/full-order.model';
 
 @Injectable()
-export default class OrdersService {
+export class OrdersService {
     orders: Order[] = [];
     customers: CustomerShort[] = [];
     statuses: Status[] = [];
@@ -36,12 +38,20 @@ export default class OrdersService {
       return this.http.get<Product[]>(`${URL}Products/`);
     }
 
+    fetchOrderData(orderId: number): Observable<FullOrder> {
+      return this.http.get<FullOrder>(`${URL}orders/${orderId}`);
+    }
+
+    fetchOrdersProducts(orderId: number): Observable<OrdersProducts[]> {
+      return this.http.get<OrdersProducts[]>(`${URL}orders/${orderId}/products`);
+    }
+
     fetchOrdersData(): Observable<OrderShort[]>{
       return this.http.get<OrderShort[]>(`${URL}Orders/`);
     }
 
-    createOrder(order: Order): Observable<Order>{
-      return this.http.post<Order>(`${URL}Orders/`, order);
+    createOrder(order: Order): Observable<any>{
+      return this.http.post<any>(`${URL}Orders/`, order);
     }
 
     updateOrder(order: Order): Observable<boolean>{

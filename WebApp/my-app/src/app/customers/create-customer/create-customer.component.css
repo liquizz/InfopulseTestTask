@@ -1,0 +1,10 @@
+.customers-container {
+  margin: 2% 20%;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.custom-btn {
+  margin-right: 5px;
+}

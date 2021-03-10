@@ -1,4 +1,6 @@
-﻿namespace WebPortal.Logic.DTOModels
+﻿using System;
+
+namespace WebPortal.Logic.DTOModels
 {
     public class GetOrderDTO
     {
@@ -7,5 +9,6 @@
         public string Address { get; set; }
         public float FinalPrice { get; set; }
         public string StatusName { get; set; }
+        public DateTime OrderDateCreated { get; set; }
     }
 }

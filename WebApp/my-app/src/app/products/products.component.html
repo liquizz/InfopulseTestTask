@@ -1,28 +1,38 @@
-<h1>Products</h1>
+<div class="custom-container">
+  <div class="custom-header">
+    <div class="row justify-content-between">
+      <div class="col-4">
+        <h3>Products</h3>
+      </div>
+      <div class="col-1 custom-btn">
+        <button class="btn btn-primary" (click)="onNewProductClicked()">New Product</button>
+      </div>
+    </div>
+  </div>
+  <div class="custom-table">
+    <table class="table table-bordered">
+      <thead class="custom-table-thead">
+      <tr>
+        <td>ProductId</td>
+        <td>Product Name</td>
+        <td>Product Category</td>
+        <td>Product Size</td>
+        <td>Product Quantity</td>
+        <td>Product Price</td>
+        <td>Action</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products">
+        <td><a [routerLink]="[product.productId]">{{product.productId}}</a></td>
+        <td>{{product.name}}</td>
+        <td>{{product.categoryName}}</td>
+        <td>{{product.sizeName}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price}}</td>
+        <td><button class="btn btn-danger" (click)="onDeleteClicked(product.productId)">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<a [routerLink]="[products.length + 1, 'new']" >New Product</a>
-
-<div>
-  <thead>
-    <tr>
-      <td>ProductId</td>
-      <td>Product Name</td>
-      <td>Product Category</td>
-      <td>Product Size</td>
-      <td>Product Quantity</td>
-      <td>Product Price</td>
-      <td>Action</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of products">
-      <td><a [routerLink]="[product.productId]">{{product.productId}}</a></td>
-      <td>{{product.name}}</td>
-      <td>{{product.categoryName}}</td>
-      <td>{{product.sizeName}}</td>
-      <td>{{product.quantity}}</td>
-      <td>{{product.price}}</td>
-      <td><button (click)="onDeleteClicked(product.productId)">Delete</button></td>
-    </tr>
-  </tbody>
-</div>

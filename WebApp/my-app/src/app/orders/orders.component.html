@@ -1,27 +1,36 @@
-<h1>Orders</h1>
-
-<button (click)="onNewOrderClicked()">New Order</button>
-
-<div>
-  <table>
-    <thead>
-    <tr>
-      <td>Order Number</td>
-      <td>Customer Name</td>
-      <td>Customer Address</td>
-      <td>Total Cost</td>
-      <td>Status</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let order of orders">
-      <td><a [routerLink]="[order.orderId]">{{order.orderId}}</a></td>
-      <td>{{order.name}}</td>
-      <td>{{order.address}}</td>
-      <td>{{order.finalPrice}}</td>
-      <td>{{order.statusName}}</td>
-    </tr>
-    </tbody>
-  </table>
+<div class="custom-container">
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <h3>Orders</h3>
+    </div>
+    <div class="col-1 custom-btn">
+      <button class="btn btn-primary" (click)="onNewOrderClicked()">New Order</button>
+    </div>
+  </div>
+  <div class="custom-table">
+    <table class="table table-bordered">
+      <thead class="custom-table-thead">
+      <tr>
+        <td>Order Number</td>
+        <td>Customer Name</td>
+        <td>Customer Address</td>
+        <td>Total Cost</td>
+        <td>Status</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders">
+        <td><a [routerLink]="[order.orderId]">{{order.orderId}}</a></td>
+        <td>{{order.name}}</td>
+        <td>{{order.address}}</td>
+        <td>{{order.finalPrice}}</td>
+        <td>{{order.statusName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+
+
 

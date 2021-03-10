@@ -5,9 +5,8 @@
   <a routerLink="../">Go Back</a>
 </div>
 <div *ngIf="isSuccessful === undefined">
-  <form (ngSubmit)="onCustomerCreate(form.value)" #form="ngForm">
-    <label>Date created: </label>
-    <p>{{ date }}</p>
+  <form (ngSubmit)="onCustomerCreate(form.value)" #form="ngForm" class="form-group custom-container">
+    <label>Date created: {{ formattedDate }}</label>
     <div class="form-group">
       <label for="username">Customer Name</label>
       <input
@@ -22,13 +21,13 @@
     <div class="form-group">
       <p>Address: </p>
       <textarea
-        class="form-control"
+        class="form-control form-text"
         name="address"
         rows="3"
         [(ngModel)]="address"
         required></textarea>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
-    <button class="btn btn-primary" routerLink="../">Cancel</button>
+    <button class="btn btn-primary custom-btn" type="submit" [disabled]="!form.valid">Save</button>
+    <button class="btn btn-primary custom-btn" routerLink="../">Cancel</button>
   </form>
 </div>

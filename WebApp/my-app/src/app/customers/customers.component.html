@@ -1,22 +1,22 @@
-<div class="customers-container">
-  <div class="customers-header">
+<div class="custom-container">
+  <div class="custom-header">
     <div class="row justify-content-between">
       <div class="col-4">
         <h3>Customers</h3>
       </div>
-      <div class="col-1">
-        <a routerLink="new" >New Customer</a>
+      <div class="col-1 create-customer-btn">
+        <button class="btn btn-primary" (click)="onNewCustomerClicked()">New Customer</button>
       </div>
     </div>
   </div>
-  <div>
-    <table class="table customers-table">
-      <thead class="customers-table-thead">
+  <div class="custom-table">
+    <table class="table table-bordered custom-table">
+      <thead class="custom-table-thead">
       <tr>
-        <td class="customers-table-head" width="30%">Customer Name</td>
-        <td class="customers-table-head" width="30%">Customer Address</td>
-        <td class="customers-table-head" width="20%">Total Orders Sum</td>
-        <td class="customers-table-head" width="20%">Total Orders</td>
+        <td class="customers-table-head" width="30%" scope="col">Customer Name</td>
+        <td class="customers-table-head" width="30%" scope="col">Customer Address</td>
+        <td class="customers-table-head" width="20%" scope="col">Total Orders Sum</td>
+        <td class="customers-table-head" width="20%" scope="col">Total Orders</td>
       </tr>
       </thead>
       <tbody>

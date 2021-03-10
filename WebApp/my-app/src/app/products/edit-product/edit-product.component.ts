@@ -5,6 +5,19 @@ import {Subscription} from 'rxjs';
 import {Product} from '../../models/product.model';
 import {Category} from '../../models/category.model';
 import {Size} from '../../models/size.model';
+import {DateHelper} from '../../helpers/date-helper';
+
+interface ReceivedProduct {
+  productId: number;
+  name: string;
+  categoryName: string;
+  sizeName: string;
+  quantity: number;
+  price: number;
+  productDate: Date;
+  productDescriptionId: number;
+  description: string;
+}
 
 @Component({
   selector: 'app-edit-product',
@@ -14,11 +27,12 @@ import {Size} from '../../models/size.model';
 export class EditProductComponent implements OnInit {
   productId = 0;
   paramsSubscription: Subscription;
-  product: any; // TODO: Ask mentor about what if we put Product type here instead of any
+  product: ReceivedProduct; // TODO: Ask mentor about what if we put Product type here instead of any
   categories: Category[] = [];
   sizes: Size[] = [];
   currentCategoryName = '';
   currentSizeName = '';
+  formattedDate: string;
   // isSuccessful: boolean;
 
   constructor(
@@ -33,6 +47,7 @@ export class EditProductComponent implements OnInit {
     });
     this.productsService.getProduct(this.productId).subscribe((response) => {
       this.product = response;
+      this.formattedDate = DateHelper.convertDateToReadableString(this.product.productDate);
     });
     this.productsService.getCategories().subscribe((response) => {
       this.categories = response;
@@ -40,8 +55,8 @@ export class EditProductComponent implements OnInit {
     this.productsService.getSizes().subscribe((response) => {
       this.sizes = response;
     });
-    this.currentCategoryName = this.categories.find((el) => el.categoryId === this.product.ProductCategoryId).categoryName;
-    this.currentSizeName = this.sizes.find((el) => el.sizeId === this.product.ProductSizeId).sizeName;
+    // this.currentCategoryName = this.categories.find((el) => el.categoryId === this.product.ProductCategoryId).categoryName;
+    // this.currentSizeName = this.sizes.find((el) => el.sizeId === this.product.ProductSizeId).sizeName;
   }
 
   onSubmitClicked(form: {

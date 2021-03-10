@@ -1,5 +1,5 @@
-import {Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import OrdersService from '../orders.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {OrdersService} from '../orders.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrdersDataService} from '../order-data.service';
 import Order from '../../models/order.model';
@@ -7,6 +7,7 @@ import {Product} from '../../models/product.model';
 import {ProductsService} from '../../products/products.service';
 import {Size} from '../../models/size.model';
 import {Subscription} from 'rxjs';
+import {ChosenProductModel} from '../../models/chosen-product.model';
 
 @Component({
   selector: 'app-add-product',
@@ -73,23 +74,23 @@ export class AddProductComponent implements OnInit, OnDestroy {
     productId: number,
     quantity: number,
     sizeId: number
-  }): void{
-    // const chosenProduct: Product = {
-    //   Price: 0,
-    //   ProductCategoryId: 0,
-    //   ProductDate: undefined,
-    //   ProductDescription: '',
-    //   ProductDescriptionId: 0,
-    //   ProductId: 0,
-    //   ProductName: '',
-    //   ProductSizeId: 0,
-    //   Quantity: 0
-    // };
-
+  }): void {
     this.productsService.getProduct(orderForm.productId).subscribe(res => {
-      this.ordersDataService.addChosenProduct(res);
+      const chosenProduct: Product = {
+        Price: res.price,
+        ProductCategoryId: 0,
+        ProductDate: undefined,
+        ProductDescription: '',
+        ProductDescriptionId: 0,
+        ProductName: res.name,
+        ProductSizeId: res.sizeName,
+        ProductId: +orderForm.productId,
+        Quantity: +orderForm.quantity
+      };
+
+      this.ordersDataService.addChosenProduct(chosenProduct);
       this.router.navigate(['orders', this.route.snapshot.params.id, 'new']);
-    });
+    }, error => console.log(error));
   }
 
   onGoBackClick = () => {

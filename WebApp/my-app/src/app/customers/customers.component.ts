@@ -4,6 +4,7 @@ import { URL } from '../url-helper';
 import {Router} from '@angular/router';
 import Customer from '../models/customer.model';
 import { CustomersService } from './customers.service';
+import {DateHelper} from '../helpers/date-helper';
 
 @Component({
   selector: 'app-customers',
@@ -26,5 +27,7 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-
+  onNewCustomerClicked = () => {
+    this.router.navigate(['customers', 'new']);
+  }
 }

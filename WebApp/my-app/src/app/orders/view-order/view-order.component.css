@@ -1,0 +1,7 @@
+.btn-group-custom {
+  min-width: max-content;
+}
+
+.btn-group-custom button {
+  margin-right: 10px;
+}

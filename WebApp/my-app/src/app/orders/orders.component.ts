@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import Order from '../models/order.model';
-import OrdersService from './orders.service';
+import {OrdersService} from './orders.service';
 import {OrdersDataService} from './order-data.service';
 
 // export type mode = 'add' | 'edit';
@@ -15,7 +15,15 @@ import {OrdersDataService} from './order-data.service';
 
 export class OrdersComponent implements OnInit {
   orders: any[] = [];
-  currentOrder: Order = {comment: '', customerId: 0, orderDate: undefined, orderId: 0, productsList: [], statusId: 0, totalCost: 0};
+  currentOrder: Order = {
+    comment: '',
+    customerId: 0,
+    orderDate: undefined,
+    orderId: 0,
+    productsList: [],
+    statusId: 0,
+    totalCost: 0
+  };
 
   constructor(
     private http: HttpClient,

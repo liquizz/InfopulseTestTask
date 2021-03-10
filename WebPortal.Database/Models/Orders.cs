@@ -8,14 +8,13 @@ namespace WebPortal.Database.Models
     {
         public Orders()
         {
-            Products = new List<Products>();
+            
         }
         [Key]
         public int OrderId { get; set; }
         public DateTime OrderDateCreated { get; set; }
-        public float? FinalPrice { get; set; }
-        public List<Products>? Products { get; set; }
         public Customers? CustomerId { get; set; }
+        public float? FinalPrice { get; set; }
         public OrderComments? OrderComments { get; set; }
         public OrderStatuses? OrderStatuses { get; set; }
     }

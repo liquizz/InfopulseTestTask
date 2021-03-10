@@ -13,6 +13,11 @@ namespace WebPortal.Logic.ReadServices
         {
             _queries = queries;
         }
+
+        public List<GetOrdersProducts> GetOrdersProducts(int orderId)
+        {
+            return _queries.GetOrdersProducts(orderId);
+        }
         
         public GetOrderDTO GetOrder(int orderId)
         {

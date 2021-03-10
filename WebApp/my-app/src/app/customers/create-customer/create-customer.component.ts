@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CustomersService} from '../customers.service';
 import {NgForm} from '@angular/forms';
+import {DateHelper} from '../../helpers/date-helper';
+import {Router} from '@angular/router';
 
 interface CreateCustomer{
   username: string;
@@ -15,9 +17,12 @@ interface CreateCustomer{
 export class CreateCustomerComponent implements OnInit {
   address: string;
   date: Date = new Date();
+  formattedDate: string = DateHelper.convertDateToReadableString(this.date);
   isSuccessful: boolean = undefined;
 
-  constructor(private customersService: CustomersService) { }
+  constructor(
+    private customersService: CustomersService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -34,5 +39,4 @@ export class CreateCustomerComponent implements OnInit {
       console.log(error);
     });
   }
-
 }

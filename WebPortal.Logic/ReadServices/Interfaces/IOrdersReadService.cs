@@ -9,5 +9,6 @@ namespace WebPortal.Logic.ReadServices.Interfaces
         List<GetOrderDTO> GetOrders();
         GetOrderDTO GetOrder(int orderId);
         List<OrderStatuses> GetOrderStatuses();
+        List<GetOrdersProducts> GetOrdersProducts(int orderId);
     }
 }

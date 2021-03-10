@@ -13,12 +13,13 @@ import { CreateCustomerComponent } from './customers/create-customer/create-cust
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import {FormsModule} from '@angular/forms';
 import {CustomersService} from './customers/customers.service';
-import OrdersService from './orders/orders.service';
+import {OrdersService} from './orders/orders.service';
 import { AddProductComponent } from './orders/add-product/add-product.component';
 import {ProductsService} from './products/products.service';
 import { ViewProductComponent } from './products/view-product/view-product.component';
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { ViewOrderComponent } from './orders/view-order/view-order.component';
+import { EditOrderComponent } from './orders/edit-order/edit-order.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ViewOrderComponent } from './orders/view-order/view-order.component';
     AddProductComponent,
     ViewProductComponent,
     EditProductComponent,
-    ViewOrderComponent
+    ViewOrderComponent,
+    EditOrderComponent
   ],
   imports: [
     BrowserModule,

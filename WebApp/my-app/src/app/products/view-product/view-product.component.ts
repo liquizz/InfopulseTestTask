@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import {Subscription} from 'rxjs';
 import {ProductsService} from '../products.service';
+import {DateHelper} from '../../helpers/date-helper';
 
 interface Product {
   productId: number;
@@ -21,7 +22,17 @@ interface Product {
 })
 export class ViewProductComponent implements OnInit {
   productId: number = undefined;
-  product: Product;
+  product: Product = {
+    categoryName: '',
+    description: '',
+    name: '',
+    price: 0,
+    productDate: undefined,
+    productId: 0,
+    quantity: 0,
+    sizeName: ''
+  };
+  formattedDate: string;
   paramsSubscription: Subscription;
 
   constructor(
@@ -35,6 +46,7 @@ export class ViewProductComponent implements OnInit {
     });
     this.productsService.getProduct(this.productId).subscribe((response) => {
       this.product = response;
+      this.formattedDate = DateHelper.convertDateToReadableString(response.productDate);
     });
   }
 

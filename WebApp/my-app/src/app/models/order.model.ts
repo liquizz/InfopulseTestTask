@@ -1,4 +1,4 @@
-import {Product} from './product.model';
+import {ChosenProductModel} from './chosen-product.model';
 
 export default interface Order{
   orderId: number;
@@ -6,7 +6,7 @@ export default interface Order{
   customerId: number;
   statusId: number;
   totalCost: number;
-  productsList: number[];
+  productsList: ChosenProductModel[];
   comment: string;
   }
 

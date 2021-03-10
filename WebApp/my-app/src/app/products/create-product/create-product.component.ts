@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Product} from '../../models/product.model';
 import {ProductsService} from '../products.service';
 import {Category} from '../../models/category.model';
-import {NgForm} from '@angular/forms';
 import {Size} from '../../models/size.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -19,7 +19,10 @@ export class CreateProductComponent implements OnInit {
   isSuccessful: boolean;
 
 
-  constructor(private productsService: ProductsService) { }
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.productsService.getProducts().subscribe((response) => {
@@ -56,6 +59,7 @@ export class CreateProductComponent implements OnInit {
     };
     this.productsService.createProduct(newProduct).subscribe(() => {
       this.isSuccessful = true;
+      this.router.navigate(['products']);
     }, error => {
       console.log(error);
     });

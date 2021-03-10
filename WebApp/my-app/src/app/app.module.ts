@@ -18,6 +18,7 @@ import { AddProductComponent } from './orders/add-product/add-product.component'
 import {ProductsService} from './products/products.service';
 import { ViewProductComponent } from './products/view-product/view-product.component';
 import { EditProductComponent } from './products/edit-product/edit-product.component';
+import { ViewOrderComponent } from './orders/view-order/view-order.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { EditProductComponent } from './products/edit-product/edit-product.compo
     CreateProductComponent,
     AddProductComponent,
     ViewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ViewOrderComponent
   ],
   imports: [
     BrowserModule,

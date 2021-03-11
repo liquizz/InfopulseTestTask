@@ -2,10 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrdersService} from '../orders.service';
 import Order from '../../models/order.model';
 import {OrdersProducts} from '../../models/orders-products.model';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {FullOrder} from '../../models/full-order.model';
 import {DateHelper} from '../../helpers/date-helper';
+import {OrdersDataService} from '../order-data.service';
 
 
 
@@ -24,7 +25,9 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
 
   constructor(
     private ordersService: OrdersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ordersDataService: OrdersDataService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +45,12 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
+  }
+
+  onEditClicked = () => {
+    this.ordersDataService.changeOrder(this.order);
+    this.ordersProducts
+    this.ordersDataService.addChosenProduct()
+    this.router.navigate(['orders', this.route.snapshot.params.id, 'edit']);
   }
 }

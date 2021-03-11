@@ -108,7 +108,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       orderId: this.currentOrderId,
       productsList: this.chosenProducts,
       statusId: formData.status,
-      totalCost: 0, // TODO: Make a calculation
+      totalCost: 0,
       comment: formData.comment
     };
 

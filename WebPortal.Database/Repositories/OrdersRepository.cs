@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Database.Models;
@@ -26,6 +27,11 @@ namespace WebPortal.Database.Repositories
             return await _context.OrdersStatuses.FirstOrDefaultAsync(_ => _.StatusId == id);
         }
 
+        public async Task<List<OrdersProducts>> GetOrdersProductsByOrderIdAsync(int orderId)
+        {
+            return await _context.OrdersProducts.Where(_ => _.Order.OrderId == orderId).ToListAsync();
+        } 
+
         public async Task<List<Orders>> GetOrders()
         {
             return await _context.Orders.ToListAsync();
@@ -43,6 +49,22 @@ namespace WebPortal.Database.Repositories
             return order.Entity;
         }
 
+        public async Task<bool> DeleteOrdersProductsByOrderIdAsync(int orderId)
+        {
+            var ordersProducts = await this.GetOrdersProductsByOrderIdAsync(orderId);
+
+            try
+            {
+                _context.OrdersProducts.RemoveRange(ordersProducts);
+                return _context.SaveChangesAsync().Result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
         public async Task<Orders> DeleteOrdersById(int id)
         {
             var order = await GetOrdersByIdAsync(id);

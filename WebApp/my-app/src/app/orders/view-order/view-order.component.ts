@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {FullOrder} from '../../models/full-order.model';
 import {DateHelper} from '../../helpers/date-helper';
 import {OrdersDataService} from '../order-data.service';
-
+import {Product} from '../../models/product.model';
 
 
 @Component({
@@ -16,7 +16,17 @@ import {OrdersDataService} from '../order-data.service';
   styleUrls: ['./view-order.component.css']
 })
 export class ViewOrderComponent implements OnInit, OnDestroy {
-  order: FullOrder = {address: '', finalPrice: 0, name: '', orderDateCreated: undefined, orderId: 0, statusName: ''};
+  order: FullOrder = {
+    customerId: 0,
+    statusId: 0,
+    comment: '',
+    address: '',
+    finalPrice: 0,
+    name: '',
+    orderDateCreated: undefined,
+    orderId: 0,
+    statusName: ''
+  };
   ordersProducts: OrdersProducts[] = [];
   formattedDate: string;
 
@@ -49,8 +59,23 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
 
   onEditClicked = () => {
     this.ordersDataService.changeOrder(this.order);
-    this.ordersProducts
-    this.ordersDataService.addChosenProduct()
+    this.ordersProducts.map((el) => {
+
+      const newProduct: Product = {
+        Price: +el.price,
+        ProductCategoryId: 0,
+        ProductDate: undefined,
+        ProductDescription: '',
+        ProductDescriptionId: 0,
+        ProductId: el.productId,
+        ProductName: el.name,
+        ProductSizeId: el.sizeId,
+        ProductSize: el.sizeName,
+        Quantity: +el.productQuantity
+
+      };
+      this.ordersDataService.addChosenProduct(newProduct);
+    });
     this.router.navigate(['orders', this.route.snapshot.params.id, 'edit']);
   }
 }

@@ -5,5 +5,8 @@ export interface FullOrder {
   finalPrice: number;
   statusName: string;
   orderDateCreated: Date;
+  comment: string;
+  customerId: number;
+  statusId: number;
 }
 

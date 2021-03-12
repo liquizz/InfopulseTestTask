@@ -69,6 +69,7 @@ export class EditProductComponent implements OnInit {
     }): void {
 
     const newProduct: Product = {
+      ProductSize: '',
       ProductId: +this.productId,
       ProductName: form.name,
       ProductCategoryId: this.categories.find((el) => el.categoryName === form.category).categoryId,

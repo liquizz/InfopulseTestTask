@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrdersService} from '../orders.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {OrdersDataService} from '../order-data.service';
 import Order from '../../models/order.model';
 import {Product} from '../../models/product.model';
@@ -19,6 +19,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   products: any[] = []; // TODO: Refactor products type && logic
   sizes: Size[] = [];
+  queryParams: Params;
 
   currentOrder: Order = {
     comment: '',
@@ -32,6 +33,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   selectedProductId: number;
 
   selectedProduct: Product = {
+    ProductSize: '',
     Price: 0,
     ProductCategoryId: 0,
     ProductDate: undefined,
@@ -68,6 +70,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.productsService.getSizes().subscribe(res => {
       this.sizes = res;
     });
+    this.route.queryParams.subscribe(params => {
+      this.queryParams = params;
+    });
   }
 
   onSubmitClicked(orderForm: {
@@ -83,18 +88,19 @@ export class AddProductComponent implements OnInit, OnDestroy {
         ProductDescription: '',
         ProductDescriptionId: 0,
         ProductName: res.name,
-        ProductSizeId: res.sizeName,
+        ProductSizeId: res.sizeId,
+        ProductSize: res.sizeName,
         ProductId: +orderForm.productId,
         Quantity: +orderForm.quantity
       };
 
       this.ordersDataService.addChosenProduct(chosenProduct);
-      this.router.navigate(['orders', this.route.snapshot.params.id, 'new']);
+      this.router.navigate(['orders', this.route.snapshot.params.id, this.queryParams.from === 'edit' ? 'edit' : 'new']);
     }, error => console.log(error));
   }
 
   onGoBackClick = () => {
-    this.router.navigate(['orders', this.route.snapshot.params.id, 'new']);
+    this.router.navigate(['orders', this.route.snapshot.params.id, this.queryParams.from === 'edit' ? 'edit' : 'new']);
   }
 
   ngOnDestroy(): void {

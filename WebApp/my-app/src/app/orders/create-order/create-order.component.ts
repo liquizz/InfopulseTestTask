@@ -119,7 +119,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     //     console.log(error);
     //   }
     //   );
-    this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product']);
+    this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product'], {queryParams: {from: 'new'}});
   }
 
   ngOnDestroy(): void {

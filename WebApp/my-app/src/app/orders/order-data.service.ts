@@ -25,7 +25,7 @@ export class OrdersDataService {
   chosenProductsChangedObservable = this.chosenProductsChanged.asObservable();
   currentOrderChangedObservable = this.currentOrderChanged.asObservable();
 
-  addChosenProduct(product: Product): void {
+  addChosenProduct(product: any): void {
     this.chosenProducts.push(product);
     this.chosenProductsChanged.next(this.chosenProducts);
   }
@@ -33,6 +33,15 @@ export class OrdersDataService {
   changeOrder(order: any): void{
     this.currentOrder = order;
     this.currentOrderChanged.next(this.currentOrder);
+  }
+
+  deleteProductFromChosenProducts(productId: number): void {
+    const currentProducts = this.chosenProductsChanged.getValue();
+    currentProducts.forEach((item, index) => {
+      if (item.ProductId === productId) { currentProducts.splice(index, 1); }
+    });
+
+    this.chosenProductsChanged.next(currentProducts);
   }
 
 }

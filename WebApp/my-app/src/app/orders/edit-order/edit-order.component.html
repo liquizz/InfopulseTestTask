@@ -1,20 +1,21 @@
-<div>
+<div class="custom-container">
   <form class="form-group" (ngSubmit)="onSubmitClicked(orderForm.value)" #orderForm="ngForm">
     <div class="row justify-content-between">
       <h3 class="col-4">Create Order</h3>
-      <div class="col-1 btn-group-custom">
+      <div style="margin-right: 20px">
         <button
           class="btn btn-primary"
+          style="margin-right: 3px"
           type="submit"
           [disabled]="!orderForm.valid"
         >Save</button>
         <button class="btn btn-primary" routerLink="../../">Cancel</button>
       </div>
     </div>
-    <p>Order Number: {{ currentOrderId }}</p>
-    <p>Order Date: {{ formattedDate }}</p>
+    <p><strong>Order Number:</strong> {{ currentOrderId }}</p>
+    <p><strong>Order Date:</strong> {{ formattedDate }}</p>
     <div class="form-group">
-      <label for="customer">Customer: </label>
+      <label for="customer"><strong>Customer:</strong> </label>
       <select
         id="customer"
         class="form-control"
@@ -26,7 +27,7 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="status">Status: </label>
+      <label for="status"><strong>Status:</strong> </label>
       <select
         id="status"
         class="form-control"
@@ -37,26 +38,27 @@
         <option *ngFor="let status of statuses" [value]="status.statusId">{{ status.statusName }}</option>
       </select>
     </div>
-    <p>Total Cost: $ {{ totalCost }}</p>
+    <p><strong>Total Cost:</strong> $ {{ totalCost }}</p>
     <div class="form-group">
-      <label for="comment">Comment: </label>
+      <label for="comment"><strong>Comment:</strong> </label>
       <textarea class="form-control" id="comment" name="comment" rows="3" ngModel>{{ currentOrder.comment }}</textarea>
     </div>
     <button class="btn btn-primary"
             (click)="onAddProductClicked(orderForm.value)">Add Products to Order</button>
     <div *ngIf="chosenProducts.length < 1">
-      <p>There's no elements to display (yet). Press "Add Products to Order"</p>
+      <p><strong>There's no elements to display (yet). Press "Add Products to Order"</strong></p>
     </div>
   </form>
-  <div *ngIf="chosenProducts.length >= 1">
-    <table>
-      <thead>
+  <div *ngIf="chosenProducts.length >= 1" class="custom-table">
+    <table class="table table-bordered">
+      <thead class="custom-table-thead">
       <tr>
         <td>Product Id</td>
         <td>Product Name</td>
         <td>Product Size</td>
         <td>Quantity</td>
         <td>Price</td>
+        <td>Action</td>
       </tr>
       </thead>
       <tbody>

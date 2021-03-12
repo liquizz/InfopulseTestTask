@@ -86,6 +86,8 @@ namespace WebPortal.Logic.WriteServices
             var status = _ordersRepository.GetOrderStatusesByIdAsync(statusId).Result;
             var products = _productsRepository.GetProductsByIdsAsync(productsIds);
 
+            await _ordersRepository.DeleteOrdersProductsByOrderIdAsync(orderId); // May cause problems later...
+            
             oldOrder.CustomerId = customer;
             oldOrder.OrderStatuses = status;
             oldOrder.FinalPrice = totalCost;

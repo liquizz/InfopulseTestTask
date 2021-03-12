@@ -21,7 +21,7 @@ namespace WebPortal.Logic.Queries
 
         public List<GetOrdersProducts> GetOrdersProducts(int orderId)
         {
-            var query = $@"select Products.ProductId, Products.Name, ProductSizes.SizeName, OrdersProducts.ProductQuantity, Products.Price from OrdersProducts
+            var query = $@"select Products.ProductId, Products.Name, ProductSizes.SizeId, ProductSizes.SizeName, OrdersProducts.ProductQuantity, Products.Price from OrdersProducts
                                 join Products on Products.ProductId = OrdersProducts.ProductId
                                 join ProductSizes on ProductSizes.SizeId = Products.ProductSizesSizeId
                                 where OrderId = {orderId};";
@@ -34,7 +34,7 @@ namespace WebPortal.Logic.Queries
         
         public GetOrderDTO GetOrder(int orderId) // Change query and DTO
         {
-            var query = $@"select Orders.OrderId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusName, Orders.OrderDateCreated
+            var query = $@"select Orders.OrderId, Customers.CustomerId, Customers.Name, Customers.Address, Orders.FinalPrice, OrdersStatuses.StatusId, OrdersStatuses.StatusName, Orders.OrderDateCreated
                                 from Orders
                                 join Customers on Customers.customerId = Orders.CustomerId1
                                 join OrdersStatuses on OrdersStatuses.statusId = Orders.OrderStatusesStatusId

@@ -47,6 +47,7 @@ export class CreateProductComponent implements OnInit {
     }): void{
 
     const newProduct: Product = {
+      ProductSize: '',
       ProductId: undefined,
       ProductName: form.name,
       ProductCategoryId: this.categories.find((el) => el.categoryName === form.category).categoryId,

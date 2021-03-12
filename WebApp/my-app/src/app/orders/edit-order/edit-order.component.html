@@ -1,1 +1,76 @@
-<p>edit-order works!</p>
+<div class="custom-container">
+  <form class="form-group" (ngSubmit)="onSubmitClicked(orderForm.value)" #orderForm="ngForm">
+    <div class="row justify-content-between">
+      <h3 class="col-4">Create Order</h3>
+      <div style="margin-right: 20px">
+        <button
+          class="btn btn-primary"
+          style="margin-right: 3px"
+          type="submit"
+          [disabled]="!orderForm.valid"
+        >Save</button>
+        <button class="btn btn-primary" routerLink="../../">Cancel</button>
+      </div>
+    </div>
+    <p><strong>Order Number:</strong> {{ currentOrderId }}</p>
+    <p><strong>Order Date:</strong> {{ formattedDate }}</p>
+    <div class="form-group">
+      <label for="customer"><strong>Customer:</strong> </label>
+      <select
+        id="customer"
+        class="form-control"
+        [ngModel]="currentOrder.customerId"
+        name="customer"
+        required
+      >
+        <option *ngFor="let customer of customers" [value]="customer.customerId">{{ customer.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="status"><strong>Status:</strong> </label>
+      <select
+        id="status"
+        class="form-control"
+        [ngModel]="currentOrder.statusId"
+        name="status"
+        required
+      >
+        <option *ngFor="let status of statuses" [value]="status.statusId">{{ status.statusName }}</option>
+      </select>
+    </div>
+    <p><strong>Total Cost:</strong> $ {{ totalCost }}</p>
+    <div class="form-group">
+      <label for="comment"><strong>Comment:</strong> </label>
+      <textarea class="form-control" id="comment" name="comment" rows="3" ngModel>{{ currentOrder.comment }}</textarea>
+    </div>
+    <button class="btn btn-primary"
+            (click)="onAddProductClicked(orderForm.value)">Add Products to Order</button>
+    <div *ngIf="chosenProducts.length < 1">
+      <p><strong>There's no elements to display (yet). Press "Add Products to Order"</strong></p>
+    </div>
+  </form>
+  <div *ngIf="chosenProducts.length >= 1" class="custom-table">
+    <table class="table table-bordered">
+      <thead class="custom-table-thead">
+      <tr>
+        <td>Product Id</td>
+        <td>Product Name</td>
+        <td>Product Size</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>Action</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of chosenProducts">
+        <td>{{product.ProductId}}</td>
+        <td>{{product.ProductName}}</td>
+        <td>{{product.ProductSize}}</td>
+        <td>{{product.Quantity}}</td>
+        <td>{{product.Price}}</td>
+        <td><button (click)="onDeleteClick(product.ProductId)">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

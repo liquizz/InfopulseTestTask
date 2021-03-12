@@ -1,12 +1,11 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import Order from "../models/order.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import Order from '../models/order.model';
 import {URL} from '../url-helper';
 import CustomerShort from '../models/customer-short.model';
 import Status from '../models/status.model';
 import { Product } from '../models/product.model';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import Customer from '../models/customer.model';
+import {Observable} from 'rxjs';
 import OrderShort from '../models/order-short.model';
 import {OrdersProducts} from '../models/orders-products.model';
 import {FullOrder} from '../models/full-order.model';
@@ -17,7 +16,6 @@ export class OrdersService {
     customers: CustomerShort[] = [];
     statuses: Status[] = [];
     products: Product[] = [];
-    ordersSelected: Order[] = []; // TODO: Change datatype to any
 
     chosenCustomer: CustomerShort;
 

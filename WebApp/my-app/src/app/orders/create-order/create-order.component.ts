@@ -108,7 +108,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       orderId: this.currentOrderId,
       productsList: this.chosenProducts,
       statusId: formData.status,
-      totalCost: 0, // TODO: Make a calculation
+      totalCost: 0,
       comment: formData.comment
     };
 
@@ -119,7 +119,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     //     console.log(error);
     //   }
     //   );
-    this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product']);
+    this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product'], {queryParams: {from: 'new'}});
   }
 
   ngOnDestroy(): void {

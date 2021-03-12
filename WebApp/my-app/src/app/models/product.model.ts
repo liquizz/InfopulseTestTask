@@ -3,6 +3,7 @@ export interface Product {
   ProductName: string;
   ProductCategoryId: number;
   ProductSizeId: number;
+  ProductSize: string;
   Quantity: number;
   Price: number;
   ProductDate: Date;

@@ -8,7 +8,7 @@ namespace WebPortal.Database.Repositories.Interfaces
     {
         List<Products> GetProductsByIdsAsync(List<int> ids);
         Task<List<Products>> GetProducts();
-        public Products DeleteProductsById(int id);
+        Task<Products> DeleteProductsById(int id);
         Task<Products> AddProducts(Products products);
         Task<ProductCategories> GetProductCategoryByIdAsync(int id);
         Task<ProductSizes> GetProductSizeByIdAsync(int id);

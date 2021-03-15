@@ -67,9 +67,14 @@ namespace WebPortal.Database.Repositories
             return product;
         }
 
-        public Products DeleteProductsById(int id)
+        public async Task<Products> DeleteProductsById(int id)
         {
             var product = GetProductsByIdsAsync(new List<int> { id } );
+            var ordersProducts = _context.OrdersProducts.Where(_ => _.Product == product.FirstOrDefault())
+                .ToList();
+
+            _context.OrdersProducts.RemoveRange(ordersProducts);
+            await _context.SaveChangesAsync();
             
             var result = _context.Products.Remove(product.FirstOrDefault()).Entity;
 

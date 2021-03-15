@@ -10,6 +10,7 @@ namespace WebPortal.Logic.DTOModels
         public int customerId { get; set; }
         public int statusId { get; set; }
         public int totalCost { get; set; }
+        public string comment { get; set; }
         public List<ProductsListDTO> productsList { get; set; }
     }
 }

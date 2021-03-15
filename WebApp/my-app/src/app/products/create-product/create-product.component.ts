@@ -4,6 +4,7 @@ import {ProductsService} from '../products.service';
 import {Category} from '../../models/category.model';
 import {Size} from '../../models/size.model';
 import {Router} from '@angular/router';
+import {DateHelper} from '../../helpers/date-helper';
 
 @Component({
   selector: 'app-create-product',
@@ -17,6 +18,7 @@ export class CreateProductComponent implements OnInit {
   sizes: Size[] = [];
   date: Date = new Date();
   isSuccessful: boolean;
+  formattedDate: string = DateHelper.convertDateToReadableString(this.date);
 
 
   constructor(

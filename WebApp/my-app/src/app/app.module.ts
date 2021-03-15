@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CustomersComponent } from './customers/customers.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LayoutComponent } from './layout/layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateOrderComponent } from './orders/create-order/create-order.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
@@ -27,7 +27,7 @@ import { EditOrderComponent } from './orders/edit-order/edit-order.component';
     OrdersComponent,
     ProductsComponent,
     CustomersComponent,
-    DashboardComponent,
+    LayoutComponent,
     CreateOrderComponent,
     CreateCustomerComponent,
     CreateProductComponent,

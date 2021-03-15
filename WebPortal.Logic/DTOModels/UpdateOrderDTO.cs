@@ -5,12 +5,12 @@ namespace WebPortal.Logic.DTOModels
 {
     public class UpdateOrderDTO
     {
-        public int orderId { get; set; }
-        public DateTime orderDate { get; set; }
-        public int customerId { get; set; }
-        public int statusId { get; set; }
-        public int totalCost { get; set; }
-        public string comment { get; set; }
-        public List<ProductsListDTO> productsList { get; set; }
+        public int OrderId { get; set; }
+        public DateTime OrderDate { get; set; }
+        public int CustomerId { get; set; }
+        public int StatusId { get; set; }
+        public int TotalCost { get; set; }
+        public string Comment { get; set; }
+        public List<ProductsListDTO> ProductsList { get; set; }
     }
 }

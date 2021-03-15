@@ -62,16 +62,16 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
     this.ordersProducts.map((el) => {
 
       const newProduct: Product = {
-        Price: +el.price,
-        ProductCategoryId: 0,
-        ProductDate: undefined,
-        ProductDescription: '',
-        ProductDescriptionId: 0,
-        ProductId: el.productId,
-        ProductName: el.name,
-        ProductSizeId: el.sizeId,
-        ProductSize: el.sizeName,
-        Quantity: +el.productQuantity
+        price: +el.price,
+        productCategoryId: 0,
+        productDate: undefined,
+        productDescription: '',
+        productDescriptionId: 0,
+        productId: el.productId,
+        productName: el.name,
+        productSizeId: el.sizeId,
+        productSize: el.sizeName,
+        quantity: +el.productQuantity
 
       };
       this.ordersDataService.addChosenProduct(newProduct);

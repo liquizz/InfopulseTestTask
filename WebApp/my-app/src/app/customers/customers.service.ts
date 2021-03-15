@@ -1,13 +1,13 @@
-import Customer from "../models/customer.model";
+import Customer from '../models/customer.model';
 import { HttpClient } from '@angular/common/http';
 import { URL } from '../url-helper';
-import { EventEmitter, Injectable } from "@angular/core";
-import {Observable, Subscription} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface CustomerDTO {
-  Name: string;
-  Address: string;
-  CreatedDate: Date;
+  name: string;
+  address: string;
+  createdDate: Date;
 }
 
 @Injectable()
@@ -23,7 +23,7 @@ export class CustomersService{
     }
 
     sendCustomersData(customerName: string, customerAddress: string, dateCreated: Date): Observable<boolean> {
-      const newCustomer: CustomerDTO = {Name: customerName, Address: customerAddress, CreatedDate: dateCreated};
+      const newCustomer: CustomerDTO = {name: customerName, address: customerAddress, createdDate: dateCreated};
       return this.http.post<boolean>(`${URL}Customers`, newCustomer);
     }
 }

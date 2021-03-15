@@ -55,9 +55,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.ordersService.fetchStatusesData().subscribe((response: Status[]) => {
       this.statuses = response;
     });
-    // this.ordersService.fetchProductsData().subscribe((response: Product[]) => {
-    //   this.products = response;
-    // });
     this.currentOrderId = this.route.snapshot.params.id;
     this.currentChosenProductsSubscription = this.ordersDataService.chosenProductsChangedObservable.subscribe(res => {
       this.chosenProducts = res;
@@ -92,7 +89,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.ordersService.updateOrder(updatedOrder).subscribe(res => {
 
       }, error => {
-      console.log(error);
+      console.error(error);
     });
     this.router.navigate(['orders']);
   }

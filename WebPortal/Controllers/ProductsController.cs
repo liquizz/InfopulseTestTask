@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WebPortal.Database.Models;
 using WebPortal.helpers;
 using WebPortal.Logic.DTOModels;
@@ -53,7 +54,10 @@ namespace WebPortal.API.Controllers
         [HttpPost("create")]
         public async Task<bool> CreateProduct(JsonElement createProductData)
         {
-            var deserializedProductData = JsonDeserializeHelper.ToObject<CreateProductDTO>(createProductData);
+            var json = createProductData.ToString();
+            var deserializedProductData = JsonConvert.DeserializeObject<CreateProductDTO>(json); 
+            
+            //var deserializedProductData = JsonDeserializeHelper.ToObject<CreateProductDTO>(createProductData);
 
             return await _productsWriteService.CreateProduct(deserializedProductData.ProductName, deserializedProductData.ProductCategoryId,
                 deserializedProductData.Quantity, deserializedProductData.Price, deserializedProductData.ProductDate,
@@ -69,7 +73,9 @@ namespace WebPortal.API.Controllers
         [HttpPost("update")]
         public async Task<object> UpdateProduct(JsonElement updateProductData)
         {
-            var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateProductDTO>(updateProductData);
+            var json = updateProductData.ToString();
+            var deserializedProductData = JsonConvert.DeserializeObject<UpdateProductDTO>(json); 
+            //JsonDeserializeHelper.ToObject<UpdateProductDTO>(updateProductData);
             
 
             return await _productsWriteService.EditProduct(deserializedProductData.ProductId, deserializedProductData.ProductName,

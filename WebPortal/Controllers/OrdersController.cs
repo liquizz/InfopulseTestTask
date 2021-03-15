@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WebPortal.Database.Models;
 using WebPortal.helpers;
 using WebPortal.Logic.DTOModels;
@@ -53,21 +54,25 @@ namespace WebPortal.API.Controllers
         [HttpPost]
         public async Task<Orders> CreateOrder(JsonElement createOrderData)
         {
-            var deserializedProductData = JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
-
-            return await _ordersWriteService.CreateOrder(deserializedProductData.orderDate, deserializedProductData.customerId,
-                deserializedProductData.statusId, deserializedProductData.totalCost, 
-                deserializedProductData.productsList);
+            var json = createOrderData.ToString();
+            var deserializedProductData = JsonConvert.DeserializeObject<CreateOrderDTO>(json); 
+            // JsonDeserializeHelper.ToObject<CreateOrderDTO>(createOrderData);
+            
+            return await _ordersWriteService.CreateOrder(deserializedProductData.OrderDate, deserializedProductData.CustomerId,
+                deserializedProductData.StatusId, deserializedProductData.TotalCost, 
+                deserializedProductData.ProductsList);
         }
         
         [HttpPost("{orderId}")]
         public async Task<bool> UpdateOrder(JsonElement updateOrderData, int orderId)
         {
-            var deserializedProductData = JsonDeserializeHelper.ToObject<UpdateOrderDTO>(updateOrderData);
+            var json = updateOrderData.ToString();
+            var deserializedProductData = JsonConvert.DeserializeObject<UpdateOrderDTO>(json); 
+            // JsonDeserializeHelper.ToObject<UpdateOrderDTO>(updateOrderData);
             
-            return await _ordersWriteService.EditOrder(orderId, deserializedProductData.orderDate, 
-                deserializedProductData.customerId, deserializedProductData.statusId, 
-                deserializedProductData.totalCost, deserializedProductData.productsList);
+            return await _ordersWriteService.EditOrder(orderId, deserializedProductData.OrderDate, 
+                deserializedProductData.CustomerId, deserializedProductData.StatusId, 
+                deserializedProductData.TotalCost, deserializedProductData.ProductsList);
         }
     }
 }

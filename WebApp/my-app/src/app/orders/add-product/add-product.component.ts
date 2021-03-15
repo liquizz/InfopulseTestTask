@@ -33,16 +33,16 @@ export class AddProductComponent implements OnInit, OnDestroy {
   selectedProductId: number;
 
   selectedProduct: Product = {
-    ProductSize: '',
-    Price: 0,
-    ProductCategoryId: 0,
-    ProductDate: undefined,
-    ProductDescription: '',
-    ProductDescriptionId: 0,
-    ProductId: 0,
-    ProductName: '',
-    ProductSizeId: 0,
-    Quantity: 0
+    productSize: '',
+    price: 0,
+    productCategoryId: 0,
+    productDate: undefined,
+    productDescription: '',
+    productDescriptionId: 0,
+    productId: 0,
+    productName: '',
+    productSizeId: 0,
+    quantity: 0
   };
 
   constructor(
@@ -82,16 +82,16 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }): void {
     this.productsService.getProduct(orderForm.productId).subscribe(res => {
       const chosenProduct: Product = {
-        Price: res.price,
-        ProductCategoryId: 0,
-        ProductDate: undefined,
-        ProductDescription: '',
-        ProductDescriptionId: 0,
-        ProductName: res.name,
-        ProductSizeId: res.sizeId,
-        ProductSize: res.sizeName,
-        ProductId: +orderForm.productId,
-        Quantity: +orderForm.quantity
+        price: res.price,
+        productCategoryId: 0,
+        productDate: undefined,
+        productDescription: '',
+        productDescriptionId: 0,
+        productName: res.name,
+        productSizeId: res.sizeId,
+        productSize: res.sizeName,
+        productId: +orderForm.productId,
+        quantity: +orderForm.quantity
       };
 
       this.ordersDataService.addChosenProduct(chosenProduct);

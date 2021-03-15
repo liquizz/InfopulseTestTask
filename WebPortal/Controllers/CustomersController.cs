@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WebPortal.API.Filters;
 using WebPortal.Database.Models;
 using WebPortal.Logic.DTOModels;
@@ -45,7 +46,10 @@ namespace WebPortal.API.Controllers
         [HttpPost]
         public async Task<bool> CreateCustomer(JsonElement customerData)
         {
-            var deserializedCustomerData = JsonDeserializeHelper.ToObject<CustomerDTO>(customerData);
+            var json = customerData.ToString();
+            var deserializedCustomerData = JsonConvert.DeserializeObject<CustomerDTO>(json); 
+            
+            //var deserializedCustomerData = JsonDeserializeHelper.ToObject<CustomerDTO>(customerData);
 
             return await _writeService.CreateCustomer(deserializedCustomerData.Name, deserializedCustomerData.Address,
                     deserializedCustomerData.CreatedDate);

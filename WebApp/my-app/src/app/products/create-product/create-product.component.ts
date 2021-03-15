@@ -49,16 +49,16 @@ export class CreateProductComponent implements OnInit {
     }): void{
 
     const newProduct: Product = {
-      ProductSize: '',
-      ProductId: undefined,
-      ProductName: form.name,
-      ProductCategoryId: this.categories.find((el) => el.categoryName === form.category).categoryId,
-      ProductSizeId: this.sizes.find((el) => el.sizeName === form.size).sizeId,
-      Quantity: +form.quantity,
-      Price: +form.price,
-      ProductDate: this.date,
-      ProductDescription: form.description,
-      ProductDescriptionId: undefined
+      productSize: '',
+      productId: undefined,
+      productName: form.name,
+      productCategoryId: this.categories.find((el) => el.categoryName === form.category).categoryId,
+      productSizeId: this.sizes.find((el) => el.sizeName === form.size).sizeId,
+      quantity: +form.quantity,
+      price: +form.price,
+      productDate: this.date,
+      productDescription: form.description,
+      productDescriptionId: undefined
     };
     this.productsService.createProduct(newProduct).subscribe(() => {
       this.isSuccessful = true;

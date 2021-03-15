@@ -5,7 +5,7 @@
 
   <form class="form-group" (ngSubmit)="onSubmitClicked(productForm.value)" #productForm="ngForm">
     <p><strong>Product Number:</strong> {{ products.length + 1 }}</p>
-    <p><strong>Product Date:</strong> {{ date }}</p>
+    <p><strong>Product Date:</strong> {{ formattedDate }}</p>
 
     <div class="form-group">
       <label for="name"><strong>Product Name:</strong> </label>

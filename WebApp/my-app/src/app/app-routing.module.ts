@@ -11,6 +11,7 @@ import {ViewProductComponent} from './products/view-product/view-product.compone
 import {EditProductComponent} from './products/edit-product/edit-product.component';
 import {ViewOrderComponent} from './orders/view-order/view-order.component';
 import {EditOrderComponent} from './orders/edit-order/edit-order.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,9 @@ const routes: Routes = [
   { path: 'products/:id/new', component: CreateProductComponent },
   { path: 'products/:id/edit', component: EditProductComponent },
   { path: 'customers/new', component: CreateCustomerComponent },
+  { path: '', redirectTo: 'customers', pathMatch: 'full' },
+  { path: 'not-found', component: PageNotFoundComponent },
+  { path: '**', redirectTo: 'not-found'}
 
 ];
 

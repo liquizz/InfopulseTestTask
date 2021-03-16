@@ -1,7 +1,7 @@
 <div class="custom-container">
   <form class="form-group" (ngSubmit)="onSubmitClicked(orderForm.value)" #orderForm="ngForm">
     <div class="row justify-content-between">
-      <h3 class="col-4">Create Order</h3>
+      <h3 class="col-4">Edit Order</h3>
       <div style="margin-right: 20px">
         <button
           class="btn btn-primary"
@@ -9,7 +9,7 @@
           type="submit"
           [disabled]="!orderForm.valid"
         >Save</button>
-        <button class="btn btn-primary" routerLink="../../">Cancel</button>
+        <button class="btn btn-primary" (click)="onCancelClick()">Cancel</button>
       </div>
     </div>
     <p><strong>Order Number:</strong> {{ currentOrderId }}</p>
@@ -22,8 +22,10 @@
         [ngModel]="currentOrder.customerId"
         name="customer"
         required
+        #customer="ngModel"
       >
         <option *ngFor="let customer of customers" [value]="customer.customerId">{{ customer.name }}</option>
+        <div class="help-block" style="color: red" *ngIf="!customer.valid && customer.touched">Customer selection is required.</div>
       </select>
     </div>
     <div class="form-group">
@@ -34,9 +36,11 @@
         [ngModel]="currentOrder.statusId"
         name="status"
         required
+        #status="ngModel"
       >
         <option *ngFor="let status of statuses" [value]="status.statusId">{{ status.statusName }}</option>
       </select>
+      <div class="help-block" style="color: red" *ngIf="!status.valid && status.touched">Status selection is required.</div>
     </div>
     <p><strong>Total Cost:</strong> $ {{ totalCost }}</p>
     <div class="form-group">
@@ -63,12 +67,12 @@
       </thead>
       <tbody>
       <tr *ngFor="let product of chosenProducts">
-        <td>{{product.ProductId}}</td>
-        <td>{{product.ProductName}}</td>
-        <td>{{product.ProductSize}}</td>
-        <td>{{product.Quantity}}</td>
-        <td>{{product.Price}}</td>
-        <td><button (click)="onDeleteClick(product.ProductId)">Delete</button></td>
+        <td>{{product.productId}}</td>
+        <td>{{product.productName}}</td>
+        <td>{{product.productSize}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price}}</td>
+        <td><button class="btn btn-danger" (click)="onDeleteClick(product.productId)">Delete</button></td>
       </tr>
       </tbody>
     </table>

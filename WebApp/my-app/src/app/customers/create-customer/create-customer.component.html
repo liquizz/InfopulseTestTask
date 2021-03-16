@@ -6,6 +6,7 @@
 </div>
 <div *ngIf="isSuccessful === undefined">
   <form (ngSubmit)="onCustomerCreate(form.value)" #form="ngForm" class="form-group custom-container">
+    <h3>New Product</h3>
     <label>Date created: {{ formattedDate }}</label>
     <div class="form-group">
       <label for="username">Customer Name</label>
@@ -16,7 +17,9 @@
         ngModel
         name="username"
         required
+        #username="ngModel"
       >
+      <div class="help-block" style="color: red" *ngIf="!username.valid && username.touched">Customer name field is required.</div>
     </div>
     <div class="form-group">
       <p>Address: </p>
@@ -25,7 +28,10 @@
         name="address"
         rows="3"
         [(ngModel)]="address"
-        required></textarea>
+        required
+        #addressmdl="ngModel"
+      ></textarea>
+      <div class="help-block" style="color: red" *ngIf="!addressmdl.valid && addressmdl.touched">Address field is required.</div>
     </div>
     <button class="btn btn-primary custom-btn" type="submit" [disabled]="!form.valid">Save</button>
     <button class="btn btn-primary custom-btn" routerLink="../">Cancel</button>

@@ -74,7 +74,7 @@ namespace WebPortal.Database.Repositories
                 .ToList();
 
             _context.OrdersProducts.RemoveRange(ordersProducts);
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
             
             var result = _context.Products.Remove(product.FirstOrDefault()).Entity;
 

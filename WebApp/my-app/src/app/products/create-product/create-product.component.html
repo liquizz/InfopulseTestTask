@@ -4,7 +4,7 @@
   </div>
 
   <form class="form-group" (ngSubmit)="onSubmitClicked(productForm.value)" #productForm="ngForm">
-    <p><strong>Product Number:</strong> {{ products.length + 1 }}</p>
+<!--    <p><strong>Product Number:</strong> {{ products.length + 1 }}</p>-->
     <p><strong>Product Date:</strong> {{ formattedDate }}</p>
 
     <div class="form-group">
@@ -19,8 +19,10 @@
         ngModel
         name="category"
         required
+        #category="ngModel"
       >
         <option *ngFor="let category of categories" [value]="category.categoryName">{{ category.categoryName }}</option>
+        <div class="help-block" style="color: red" *ngIf="!category.valid && category.touched">Category selection is required.</div>
       </select>
     </div>
     <div class="form-group">
@@ -31,17 +33,21 @@
         ngModel
         name="size"
         required
+        #size="ngModel"
       >
         <option *ngFor="let size of sizes" [value]="size.sizeName" >{{ size.sizeName }}</option>
+        <div class="help-block" style="color: red" *ngIf="!size.valid && size.touched">Size selection is required.</div>
       </select>
     </div>
     <div class="form-group">
       <label for="quantity"><strong>Available Quantity:</strong> </label>
-      <input class="form-control" type="text" ngModel name="quantity" id="quantity" required>
+      <input class="form-control" type="text" ngModel name="quantity" id="quantity" required #quantity="ngModel">
+      <div class="help-block" style="color: red" *ngIf="!quantity.valid && quantity.touched">Quantity field is required.</div>
     </div>
     <div class="form-group">
       <label for="price"><strong>Price:</strong> </label>
-      <input class="form-control" type="text" ngModel name="price" id="price" required>
+      <input class="form-control" type="text" ngModel name="price" id="price" required #price="ngModel">
+      <div class="help-block" style="color: red" *ngIf="!price.valid && price.touched">Price field is required.</div>
     </div>
     <div class="form-group">
       <label for="description"><strong>Description:</strong> </label>

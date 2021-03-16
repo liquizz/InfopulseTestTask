@@ -33,16 +33,19 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteClicked(productId): void {
-    this.productsService.deleteProduct(productId).subscribe(response => {
-      if (response === true){
-        const index = this.products.findIndex(el => el.productId === productId);
-        if (index > -1) {
-          this.products.splice(index, 1);
-        } else {
-          console.log('Object already deleted!');
+    const confirmation = confirm('Are you sure?');
+    if (confirmation){
+      this.productsService.deleteProduct(productId).subscribe(response => {
+        if (response === true){
+          const index = this.products.findIndex(el => el.productId === productId);
+          if (index > -1) {
+            this.products.splice(index, 1);
+          } else {
+            console.log('Object already deleted!');
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   onNewProductClicked = () => {

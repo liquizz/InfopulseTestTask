@@ -20,6 +20,7 @@ import { ViewProductComponent } from './products/view-product/view-product.compo
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { ViewOrderComponent } from './orders/view-order/view-order.component';
 import { EditOrderComponent } from './orders/edit-order/edit-order.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditOrderComponent } from './orders/edit-order/edit-order.component';
     ViewProductComponent,
     EditProductComponent,
     ViewOrderComponent,
-    EditOrderComponent
+    EditOrderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

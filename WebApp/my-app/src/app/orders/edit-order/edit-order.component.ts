@@ -8,6 +8,7 @@ import {OrdersService} from '../orders.service';
 import CustomerShort from '../../models/customer-short.model';
 import {FullOrder} from '../../models/full-order.model';
 import {DateHelper} from '../../helpers/date-helper';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-order',
@@ -15,6 +16,9 @@ import {DateHelper} from '../../helpers/date-helper';
   styleUrls: ['./edit-order.component.css']
 })
 export class EditOrderComponent implements OnInit {
+
+  currentOrderSubscription: Subscription;
+  currentProductsSubscription: Subscription;
 
   currentOrder: FullOrder;
   currentOrderId: number;
@@ -41,10 +45,10 @@ export class EditOrderComponent implements OnInit {
     this.ordersService.fetchStatusesData().subscribe((response: Status[]) => {
       this.statuses = response;
     });
-    this.ordersDataService.chosenProductsChangedObservable.subscribe((res) => {
+    this.currentProductsSubscription = this.ordersDataService.chosenProductsChangedObservable.subscribe((res) => {
       this.chosenProducts = res;
     });
-    this.ordersDataService.currentOrderChangedObservable.subscribe((res) => {
+    this.currentOrderSubscription = this.ordersDataService.currentOrderChangedObservable.subscribe((res) => {
       this.currentOrder = res;
       this.formattedDate = DateHelper.convertDateToReadableString(this.currentOrder.orderDateCreated);
       // this.categories.find((el) => el.categoryName === form.category).categoryId
@@ -57,7 +61,7 @@ export class EditOrderComponent implements OnInit {
   calculateTotalCost = (productsArray): number => {
     let finalSum = 0;
     productsArray.map(el => {
-      finalSum += (+el.Quantity * +el.Price);
+      finalSum += (+el.quantity * +el.price);
     });
     return finalSum;
   }
@@ -105,10 +109,23 @@ export class EditOrderComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+    this.ordersDataService.clearChosenProducts();
+
+    this.currentOrderSubscription.unsubscribe();
+    this.currentProductsSubscription.unsubscribe();
   }
 
   onDeleteClick(productId: number): void {
     this.ordersDataService.deleteProductFromChosenProducts(productId);
     this.totalCost = this.calculateTotalCost(this.chosenProducts);
+  }
+
+  onCancelClick(): void{
+    this.ordersDataService.clearChosenProducts();
+
+    this.currentOrderSubscription.unsubscribe();
+    this.currentProductsSubscription.unsubscribe();
+
+    this.router.navigate(['orders', this.route.snapshot.params.id]);
   }
 }

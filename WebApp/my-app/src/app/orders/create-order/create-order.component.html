@@ -8,7 +8,7 @@
           type="submit"
           [disabled]="!orderForm.valid"
         >Save</button>
-        <button class="btn btn-primary" routerLink="../../">Cancel</button>
+        <button class="btn btn-primary" (click)="onCancelClick()">Cancel</button>
       </div>
     </div>
     <p>Order Number: {{ currentOrder.orderId }}</p>
@@ -21,9 +21,11 @@
         [ngModel]="currentOrder.customerId"
         name="customer"
         required
+        #customer="ngModel"
       >
         <option *ngFor="let customer of customers" [value]="customer.customerId">{{ customer.name }}</option>
       </select>
+      <div class="help-block" style="color: red" *ngIf="!customer.valid && customer.touched">Customer selection is required.</div>
     </div>
     <div class="form-group">
       <label for="status">Status: </label>
@@ -33,38 +35,40 @@
         [ngModel]="currentOrder.statusId"
         name="status"
         required
+        #status="ngModel"
       >
         <option *ngFor="let status of statuses" [value]="status.statusId">{{ status.statusName }}</option>
       </select>
+      <div class="help-block" style="color: red" *ngIf="!status.valid && status.touched">Status selection is required.</div>
     </div>
     <p>Total Cost: $ {{ totalCost }}</p>
     <div class="form-group">
       <label for="comment">Comment: </label>
-      <textarea class="form-control" id="comment" name="comment" rows="3" ngModel>{{ currentOrder.comment }}</textarea>
+      <textarea class="form-control" id="comment" name="comment" rows="3" [ngModel]="currentOrder.comment">{{ currentOrder.comment }}</textarea>
     </div>
     <button class="btn btn-primary"
             (click)="onAddProductClicked(orderForm.value)">Add Products to Order</button>
     <div *ngIf="chosenProducts.length < 1">
       <p>There's no elements to display (yet). Press "Add Products to Order"</p>
     </div>
-    <div *ngIf="chosenProducts.length >= 1">
-      <table>
-        <thead>
+    <div *ngIf="chosenProducts.length >= 1" class="custom-table">
+      <table class="table table-bordered">
+        <thead class="custom-table-thead">
         <tr>
           <td>Product Id</td>
           <td>Product Name</td>
-          <td>Product Size</td>
+          <td>Size Name</td>
           <td>Quantity</td>
           <td>Price</td>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let product of chosenProducts">
-          <td>{{product.ProductId}}</td>
-          <td>{{product.ProductName}}</td>
-          <td>{{product.ProductSizeId}}</td>
-          <td>{{product.Quantity}}</td>
-          <td>{{product.Price}}</td>
+          <td>{{product.productId}}</td>
+          <td>{{product.productName}}</td>
+          <td>{{product.productSize}}</td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.price}}</td>
         </tr>
         </tbody>
       </table>

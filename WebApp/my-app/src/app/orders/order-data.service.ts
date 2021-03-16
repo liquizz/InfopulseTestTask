@@ -38,10 +38,13 @@ export class OrdersDataService {
   deleteProductFromChosenProducts(productId: number): void {
     const currentProducts = this.chosenProductsChanged.getValue();
     currentProducts.forEach((item, index) => {
-      if (item.ProductId === productId) { currentProducts.splice(index, 1); }
+      if (item.productId === productId) { currentProducts.splice(index, 1); }
     });
 
     this.chosenProductsChanged.next(currentProducts);
   }
 
+  clearChosenProducts(): void{
+    this.chosenProducts = [];
+  }
 }

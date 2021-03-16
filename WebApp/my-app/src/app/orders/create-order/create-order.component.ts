@@ -60,7 +60,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.chosenProducts = res;
     });
     this.currentOrderChangedSubscription = this.ordersDataService.currentOrderChangedObservable.subscribe(res => {
-      this.currentOrder = res;
+        this.currentOrder = res;
     });
     if (this.chosenProducts.length > 0){
       this.totalCost = this.calculateTotalCost(this.chosenProducts);
@@ -70,7 +70,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   calculateTotalCost = (productsArray): number => {
     let finalSum = 0;
     productsArray.map(el => {
-      finalSum += (el.Quantity * el.Price);
+      finalSum += (el.quantity * el.price);
     });
     return finalSum;
   }
@@ -91,6 +91,11 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       }, error => {
       console.error(error);
     });
+    this.ordersDataService.clearChosenProducts();
+
+    this.currentChosenProductsSubscription.unsubscribe();
+    this.currentOrderChangedSubscription.unsubscribe();
+
     this.router.navigate(['orders']);
   }
 
@@ -110,17 +115,20 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     };
 
     this.ordersDataService.changeOrder(updatedOrder);
-    // this.ordersService.updateOrder(updatedOrder).subscribe(res => { Bad idea (probably)
-    //
-    // }, error => {
-    //     console.log(error);
-    //   }
-    //   );
     this.router.navigate(['orders', this.route.snapshot.params.id, 'add-product'], {queryParams: {from: 'new'}});
   }
 
   ngOnDestroy(): void {
 
+  }
+
+  onCancelClick(): void{
+    this.ordersDataService.clearChosenProducts();
+
+    this.currentChosenProductsSubscription.unsubscribe();
+    this.currentOrderChangedSubscription.unsubscribe();
+
+    this.router.navigate(['orders']);
   }
 
 }

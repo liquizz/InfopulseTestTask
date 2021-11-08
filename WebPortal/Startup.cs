@@ -45,7 +45,7 @@ namespace WebPortal
             services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            });;
+            });
             services.AddAutofac();
             services.AddSwaggerGen(c =>
             {
@@ -70,7 +70,6 @@ namespace WebPortal
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-
             // Register your own things directly with Autofac, like:
             builder.RegisterModule(new WebPortalAutofacConfig());
         }

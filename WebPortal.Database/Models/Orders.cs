@@ -6,6 +6,7 @@ namespace WebPortal.Database.Models
 {
     public class Orders
     {
+        #nullable enable
         public Orders()
         {
             

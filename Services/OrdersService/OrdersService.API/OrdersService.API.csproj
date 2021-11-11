@@ -11,4 +11,9 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\WebPortal.Database\WebPortal.Database.csproj" />
+      <ProjectReference Include="..\OrdersService.Logic\OrdersService.Logic.csproj" />
+    </ItemGroup>
+
 </Project>

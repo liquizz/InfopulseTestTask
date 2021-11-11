@@ -1,4 +1,10 @@
 using Autofac;
+using Microsoft.Extensions.Configuration;
+using ProductsService.Logic.Queries;
+using ProductsService.Logic.Queries.Interfaces;
+using ProductsService.Logic.Services;
+using ProductsService.Logic.Services.Interfaces;
+using WebPortal.Database.Repositories.Interfaces;
 
 namespace ProductsService.API.Configs
 {
@@ -6,17 +12,25 @@ namespace ProductsService.API.Configs
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // builder.Register(c => new ConnectionStringHelper(c.Resolve<IConfiguration>())) 
-            //     .As<IConnectionStringHelper>()
-            //     .InstancePerLifetimeScope();
+            builder.Register(c => new ProductsQueries(c.Resolve<IConfiguration>())) 
+                .As<IProductsQueries>()
+                .InstancePerLifetimeScope();
+            
+            builder.Register(c => new ProductsReadService(c.Resolve<IProductsQueries>())) 
+                .As<IProductsReadService>()
+                .InstancePerLifetimeScope();
+            
+            builder.Register(c => new ProductsWriteService(c.Resolve<IProductsRepository>())) 
+                .As<IProductsWriteService>()
+                .InstancePerLifetimeScope();
         }
 
         public static ContainerBuilder ContainerBuilderConfig(ContainerBuilder builder)
         {
-            // builder.RegisterType<ConnectionStringHelper>();
-            // builder.RegisterType<OrdersQueries>();
-            // builder.RegisterType<OrdersReadService>();
-            
+            builder.RegisterType<ProductsQueries>();
+            builder.RegisterType<ProductsReadService>();
+            builder.RegisterType<ProductsWriteService>();
+
             return builder;
         }
     }

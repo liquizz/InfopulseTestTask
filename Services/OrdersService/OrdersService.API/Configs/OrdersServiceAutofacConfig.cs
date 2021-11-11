@@ -1,4 +1,10 @@
 using Autofac;
+using Microsoft.Extensions.Configuration;
+using OrdersService.Logic.Queries;
+using OrdersService.Logic.Queries.Interfaces;
+using OrdersService.Logic.Services;
+using OrdersService.Logic.Services.Interfaces;
+using WebPortal.Database.Repositories.Interfaces;
 
 namespace OrdersService.API.Configs
 {
@@ -6,17 +12,28 @@ namespace OrdersService.API.Configs
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // builder.Register(c => new ConnectionStringHelper(c.Resolve<IConfiguration>())) 
-            //     .As<IConnectionStringHelper>()
-            //     .InstancePerLifetimeScope();
+            builder.Register(c => new OrdersQueries(c.Resolve<IConfiguration>())) 
+                .As<IOrdersQueries>()
+                .InstancePerLifetimeScope();
+            
+            builder.Register(c => new OrdersReadService(c.Resolve<IOrdersQueries>())) 
+                .As<IOrdersReadService>()
+                .InstancePerLifetimeScope();
+            
+            builder.Register(c => new OrdersWriteService(
+                    c.Resolve<IProductsRepository>(),
+                    c.Resolve<IOrdersRepository>(), 
+                    c.Resolve<ICustomerRepository>())) 
+                .As<IOrdersReadService>()
+                .InstancePerLifetimeScope();
         }
 
         public static ContainerBuilder ContainerBuilderConfig(ContainerBuilder builder)
         {
-            // builder.RegisterType<ConnectionStringHelper>();
-            // builder.RegisterType<OrdersQueries>();
-            // builder.RegisterType<OrdersReadService>();
-            
+            builder.RegisterType<OrdersQueries>();
+            builder.RegisterType<OrdersReadService>();
+            builder.RegisterType<OrdersWriteService>();
+
             return builder;
         }
     }

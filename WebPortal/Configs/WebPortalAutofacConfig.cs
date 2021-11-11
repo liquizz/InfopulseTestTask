@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using WebPortal.Database;
-using WebPortal.Database.Models;
 using WebPortal.Database.Repositories;
 using WebPortal.Database.Repositories.Interfaces;
 using WebPortal.Logic.Helpers.Sql;
@@ -13,7 +12,7 @@ using WebPortal.Logic.WriteServices;
 using WebPortal.Logic.WriteServices.Interfaces;
 
 
-namespace WebPortal.configs
+namespace WebPortal.Configs
 {
     public class WebPortalAutofacConfig : Module
     {
